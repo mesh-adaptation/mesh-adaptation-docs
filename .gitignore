@@ -1,0 +1,8 @@
+# .gitignore
+
+# Subdirectories
+docs/build
+docs/source/demos
+
+# File extensions
+*:Zone.Identifier
