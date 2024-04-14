@@ -16,7 +16,7 @@ GOALIE        = ${VIRTUAL_ENV}/src/goalie
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: help Makefile clean copy_demos
+.PHONY: apidoc help clean copy_demos
 
 GENERATED_FILES = source/demos
 
@@ -79,9 +79,11 @@ $(SPHINX_TARGETS): Makefile
 
 html: apidoc $(GENERATED_FILES)
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	cp -r $(BUILDDIR)/html/* ..
 
-.PHONY: apidoc
+apidoc:
+	$(SPHINXAPIDOC) $$(python3 -c "import animate; import os; print(os.path.dirname(animate.__file__))") -o source -f -T
+	$(SPHINXAPIDOC) $$(python3 -c "import goalie; import os; print(os.path.dirname(goalie.__file__))") -o source -f -T
+	$(SPHINXAPIDOC) $$(python3 -c "import movement; import os; print(os.path.dirname(movement.__file__))") -o source -f -T
 
 clean:
 	-git clean -fdx $(BUILDDIR)/html/
