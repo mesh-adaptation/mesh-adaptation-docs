@@ -1,0 +1,13 @@
+# .gitignore
+
+# Specific files
+docs/source/animate.rst
+docs/source/goalie.rst
+docs/source/movement.rst
+
+# Subdirectories
+docs/build
+docs/source/demos
+
+# File extensions
+*:Zone.Identifier

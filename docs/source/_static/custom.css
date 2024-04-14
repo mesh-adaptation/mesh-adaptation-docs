@@ -1,0 +1,14 @@
+@import url("nature.css");
+
+div.bodywrapper {
+    margin-left: 400px;
+}
+
+div.sphinxsidebar {
+    width: 400px;
+}
+
+div.sphinxsidebarwrapper{
+    overflow: auto;
+    width: 400px;
+}
