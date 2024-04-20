@@ -38,7 +38,6 @@ be searched using the inbuilt :ref:`search engine <search>`.
     Adjoint Burgers equation with a time-integrated QoI <../demos/burgers_time_integrated.py>
     Adjoint Burgers equation (object-oriented approach) <../demos/burgers_oo.py>
     Solid body rotation <../demos/solid_body_rotation.py>
-    Solid body rotation with multiple prognostic variables <../demos/solid_body_rotation_split.py>
     Advection-diffusion-reaction <../demos/gray_scott.py>
     Advection-diffusion-reaction with multiple prognostic variables <../demos/gray_scott_split.py>
 
