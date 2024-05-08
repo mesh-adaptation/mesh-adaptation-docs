@@ -4,11 +4,11 @@
 
 This repository holds the source code used to generate the documentation pages for [Animate](https://github.com/mesh-adaptation/animate), [Goalie](https://github.com/mesh-adaptation/goalie), and [Movement](https://github.com/mesh-adaptation/movement), including long-form documentation, demos, and API documentation.
 
-The website build that is generated can be found at https://mesh-adaptation.github.io.
+The public website build can be found at https://mesh-adaptation.github.io.
 
 ## Building the documentation
 
-The documentation pages are build using [Sphinx](https://www.sphinx-doc.org/en/master).
+The documentation pages are built using [Sphinx](https://www.sphinx-doc.org/en/master).
 If your Python virtual environment does not already have Sphinx installed then install it using the following command:
 ```
 python3 -m pip install -r requirements.txt
