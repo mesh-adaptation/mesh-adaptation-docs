@@ -27,3 +27,4 @@ be searched using the inbuilt :ref:`search engine <search>`.
 
     Defining a simple metric and adapting a mesh with respect to it <../demos/simple_metric.py>
     Combining metrics <../demos/combining_metrics.py>
+    Methods for interpolating fields between different meshes <../demos/ping_pong.py>
