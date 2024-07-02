@@ -1,4 +1,4 @@
-FROM firedrakeproject/firedrake-vanilla:2024-02
+FROM firedrakeproject/firedrake-vanilla
 
 MAINTAINER Joe Wallwork <joe.wallwork@outlook.com>
 
