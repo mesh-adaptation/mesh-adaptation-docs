@@ -1,6 +1,7 @@
 name: 'Build bespoke Firedrake Docker container'
 
 on:
+  pull_request:  # TODO: temporary
   schedule:
     - cron: '0 1 * * 6'
 
