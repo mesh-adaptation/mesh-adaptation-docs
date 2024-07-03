@@ -1,7 +1,5 @@
 FROM firedrakeproject/firedrake-vanilla
 
-MAINTAINER Joe Wallwork <joe.wallwork@outlook.com>
-
 USER firedrake
 WORKDIR /home/firedrake
 
