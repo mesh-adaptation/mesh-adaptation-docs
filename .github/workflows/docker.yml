@@ -1,30 +1,50 @@
-name: 'Build bespoke Firedrake Docker container'
+name: Build bespoke Firedrake Docker container
 
 on:
+
+  # Build the Docker container whenever commits are pushed to an open PR
+  pull_request:
+
+  # Build the Docker container every Saturday at 1AM
   schedule:
     - cron: '0 1 * * 6'
 
 jobs:
   docker:
-    name: 'Build Docker container'
+    name: Build Docker container
     runs-on: ubuntu-latest
     steps:
 
-      - name: 'Check out the repo'
+      - name: Check out the repo
+        id: checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # fetch all history
 
-      - name: 'Set up Docker buildx'
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            .github/workflows/docker.yml
+
+      - name: Set up Docker buildx
         id: buildx
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         uses: docker/setup-buildx-action@v3
 
-      - name: 'Log into DockerHub'
+      - name: Log into DockerHub
+        id: login
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           logout: true
 
-      - name: 'Build and push firedrake-parmmg'
+      - name: Build and push firedrake-parmmg
+        id: build-and-push
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         uses: docker/build-push-action@v5
         with:
           push: true
