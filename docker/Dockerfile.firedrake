@@ -9,6 +9,8 @@ RUN bash -c "cd petsc; \
 	cp default/lib/petsc/conf/reconfigure-default.py .; \
 	sed -i 's/]/]\n  configure_options.extend(sys.argv[1:])/g' reconfigure-default.py; \
 	curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/petsc_options.txt; \
+	echo 'Reconfigure options:'; \
+	sed -i 's/configure.petsc/print(configure_options)\nconfigure.petsc/g' reconfigure-default.py; \
 	./reconfigure-default.py $(echo -n $(cat petsc_options.txt))"
 
 # Rebuild PETSc
