@@ -16,7 +16,7 @@ CWD=$(pwd)
 unset PYTHONPATH
 unset PETSC_DIR
 unset PETSC_ARCH
-export PETSC_CONFIGURE_OPTIONS="$(cat petsc_options.txt | tr '\n' ' ')"
+export PETSC_CONFIGURE_OPTIONS="$(echo -n $(cat petsc_configure_options.txt))"
 FIREDRAKE_DIR=${SOFTWARE}/${FIREDRAKE_ENV}
 
 # Check environment variables
