@@ -3,16 +3,12 @@ FROM firedrakeproject/firedrake-vanilla
 USER firedrake
 WORKDIR /home/firedrake
 
-# Reconfigure PETSc with Mmg and ParMmg
+# Reconfigure PETSc with packages required for mesh adaptation
 RUN bash -c "cd petsc; \
 	git fetch; \
 	cp default/lib/petsc/conf/reconfigure-default.py .; \
-	sed -i '30i \ \ \ \ '\''--download-parmmg'\'',' reconfigure-default.py; \
-	sed -i '30i \ \ \ \ '\''--download-mmg'\'',' reconfigure-default.py; \
-	sed -i '30i \ \ \ \ '\''--download-eigen'\'',' reconfigure-default.py; \
-	sed -i '30i \ \ \ \ '\''--download-triangle'\'',' reconfigure-default.py; \
-	sed -i '30i \ \ \ \ '\''--download-tetgen'\'',' reconfigure-default.py; \
-	./reconfigure-default.py"
+	sed -i 's/]/]\n  configure_options.extend(sys.argv[1:])/g' reconfigure-default.py; \
+	./reconfigure-default.py $(cat ../install/petsc_options.txt)"
 
 # Rebuild PETSc
 RUN bash -c "cd petsc; \
