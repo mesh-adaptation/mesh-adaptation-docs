@@ -8,7 +8,8 @@ RUN bash -c "cd petsc; \
 	git fetch; \
 	cp default/lib/petsc/conf/reconfigure-default.py .; \
 	sed -i 's/]/]\n  configure_options.extend(sys.argv[1:])/g' reconfigure-default.py; \
-	./reconfigure-default.py $(echo -n $(curl https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/petsc_reconfigure_options.txt))"
+	./reconfigure-default.py $(echo -n $(curl https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/32_petsc_update_docker/install/petsc_reconfigure_options.txt))"
+	# TODO: Switch to main branch once merged
 
 # Rebuild PETSc
 RUN bash -c "cd petsc; \
