@@ -3,40 +3,27 @@ FROM firedrakeproject/firedrake-vanilla
 USER firedrake
 WORKDIR /home/firedrake
 
-# Reconfigure PETSc with packages required for mesh adaptation
-RUN bash -c "cd petsc; \
-	git fetch; \
-	cp default/lib/petsc/conf/reconfigure-default.py .; \
-	sed -i 's/]/]\n  configure_options.extend(sys.argv[1:])/g' reconfigure-default.py; \
-	./reconfigure-default.py $(echo -n $(curl https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/32_petsc_update_docker/install/petsc_reconfigure_options.txt))"
-	# TODO: Switch to main branch once merged
+# Reconfigure PETSc with packages required for mesh adaptation and rebuild
+RUN bash -c "cd petsc && \
+	  git fetch && \
+	  cp default/lib/petsc/conf/reconfigure-default.py . && \
+	  sed -i 's/]/]\n  configure_options.extend(sys.argv[1:])/g' reconfigure-default.py && \
+	  ./reconfigure-default.py $(echo -n $(curl https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/petsc_reconfigure_options.txt)) && \
+    make all"
 
-# Rebuild PETSc
-RUN bash -c "cd petsc; \
-	make all"
-
-# Rebuild Firedrake
-RUN bash -c "source firedrake/bin/activate; \
-	cd firedrake/src/firedrake; \
-	firedrake-update --install thetis"
-
-# Install Animate
-RUN bash -c "source firedrake/bin/activate; \
-	cd firedrake/src; \
-	git clone https://github.com/mesh-adaptation/animate.git; \
-	cd animate; \
-	make install"
-
-# Install Movement
-RUN bash -c "source firedrake/bin/activate; \
-	cd firedrake/src; \
-	git clone https://github.com/mesh-adaptation/movement.git; \
-	cd movement; \
-	make install"
-
-# Install Goalie
-RUN bash -c "source firedrake/bin/activate; \
-	cd firedrake/src; \
-	git clone https://github.com/mesh-adaptation/goalie.git; \
-	cd goalie; \
-	make install"
+# Rebuild Firedrake and install additional packages
+RUN bash -c "source firedrake/bin/activate && \
+	  cd firedrake/src/firedrake && \
+	  firedrake-update --install thetis && \
+	  cd .. && \
+	  git clone https://github.com/mesh-adaptation/animate.git && \
+	  cd animate && \
+	  make install && \
+	  cd .. && \
+	  git clone https://github.com/mesh-adaptation/movement.git && \
+	  cd movement && \
+	  make install && \
+	  cd .. && \
+	  git clone https://github.com/mesh-adaptation/goalie.git && \
+	  cd goalie && \
+	  make install"
