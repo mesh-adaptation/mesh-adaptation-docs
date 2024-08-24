@@ -1,6 +1,18 @@
 # Makefile for installing Firedrake based on a PETSc installation including Mmg
 # and ParMmg.
 
+# Distribution-specific includes
+ifneq (,$(findstring Debian,$(shell cat /etc/os-release)))
+DISTRO = debian
+else ifneq (,$(findstring Red Hat,$(shell cat /etc/os-release)))
+DISTRO = rhel
+else ifneq (,$(findstring Ubuntu,$(shell cat /etc/os-release)))
+DISTRO = ubuntu
+else
+DISTRO = other
+endif
+include config/$(DISTRO).mk
+
 # Command line options
 MPICC					?= $(shell which mpicc)
 MPICXX					?= $(shell which mpicxx)
@@ -16,7 +28,7 @@ PETSC_CONFIGURE_OPTIONS="$(shell echo -n $(shell cat $(PETSC_CONFIGURE_FILE))) \
 						--CXX=${MPICXX} --FC=${MPIF90}"
 
 # Handle command line inputs
-FIREDRAKE_CONFIGURE_OPTIONS := "--venv-name=$(FIREDRAKE_ENV)"
+FIREDRAKE_CONFIGURE_OPTIONS += "--venv-name=$(FIREDRAKE_ENV)"
 ifneq ($(MPICC),)
     ifeq ($(shell test -e $(MPICC) && echo exists),)
         $(error MPICC is defined but the path $(MPICC) does not exist)
@@ -47,6 +59,7 @@ endif
 all: clean check_env install
 
 check_env:
+	@echo "Distribution=$(DISTRO)"
 	@echo "MPICC=$(MPICC)"
 	@echo "MPICXX=$(MPICXX)"
 	@echo "MPIF90=$(MPIF90)"
