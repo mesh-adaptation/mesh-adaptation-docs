@@ -1,29 +1,30 @@
-FROM firedrakeproject/firedrake-vanilla
+FROM ghcr.io/mesh-adaptation/petsc-parmmg
 
 USER firedrake
 WORKDIR /home/firedrake
 
-# Reconfigure PETSc with packages required for mesh adaptation and rebuild
-RUN bash -c "cd petsc && \
-	  git fetch && \
-	  cp default/lib/petsc/conf/reconfigure-default.py . && \
-	  sed -i 's/]/]\n  configure_options.extend(sys.argv[1:])/g' reconfigure-default.py && \
-	  ./reconfigure-default.py $(echo -n $(curl https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/petsc_reconfigure_options.txt)) && \
-    make all"
+ENV PETSC_ARCH default
 
-# Rebuild Firedrake and install additional packages
-RUN bash -c "source firedrake/bin/activate && \
-	  cd firedrake/src/firedrake && \
-	  firedrake-update --install thetis && \
-	  cd .. && \
+# Build Firedrake and install additional packages
+RUN curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/scripts/firedrake-install
+RUN bash -c "python3 firedrake-install \
+    --no-package-manager \
+    --disable-ssh \
+    --torch \
+    --honour-petsc-dir \
+    --mpicc=${MPICH_DIR}/mpicc \
+    --mpicxx=${MPICH_DIR}/mpicxx \
+    --mpif90=${MPICH_DIR}/mpif90 \
+    --mpiexec=${MPICH_DIR}/mpiexec \
+    --install thetis && \
+    source firedrake/bin/activate && \
+	  cd firedrake/src && \
 	  git clone https://github.com/mesh-adaptation/animate.git && \
+	  git clone https://github.com/mesh-adaptation/movement.git && \
+	  git clone https://github.com/mesh-adaptation/goalie.git && \
 	  cd animate && \
 	  make install && \
-	  cd .. && \
-	  git clone https://github.com/mesh-adaptation/movement.git && \
-	  cd movement && \
+	  cd ../movement && \
 	  make install && \
-	  cd .. && \
-	  git clone https://github.com/mesh-adaptation/goalie.git && \
-	  cd goalie && \
+	  cd ../goalie && \
 	  make install"

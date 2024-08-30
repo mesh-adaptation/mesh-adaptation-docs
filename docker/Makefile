@@ -2,16 +2,14 @@ all: build
 
 DOCKERHUB	= YES
 
-ifeq ($(DOCKERHUB),YES)
-NAMESPACE	= jwallwork
-else
+# PACKAGE		= petsc
+PACKAGE		= firedrake
 NAMESPACE	= ghcr.io/mesh-adaptation
-endif
-IMAGE		= firedrake-parmmg
+IMAGE		= $(PACKAGE)-parmmg
 TAG		= latest
 
 build:
-	docker build -f Dockerfile.firedrake -t $(NAMESPACE)/$(IMAGE):$(TAG) --no-cache .
+	docker build -f Dockerfile.$(PACKAGE) -t $(NAMESPACE)/$(IMAGE):$(TAG) .
 
 pull:
 	docker pull $(NAMESPACE)/$(IMAGE):$(TAG)
