@@ -2,8 +2,7 @@ all: build
 
 DOCKERHUB	= YES
 
-# PACKAGE		= petsc
-PACKAGE		= firedrake
+PACKAGE		?=
 NAMESPACE	= ghcr.io/mesh-adaptation
 IMAGE		= $(PACKAGE)-parmmg
 TAG		= latest
