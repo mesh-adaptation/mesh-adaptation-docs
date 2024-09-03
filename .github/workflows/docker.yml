@@ -24,6 +24,8 @@ jobs:
         with:
           files: |
             .github/workflows/docker.yml
+            .github/workflows/Dockerfile.firedrake
+            .github/workflows/Dockerfile.petsc
 
       - name: 'Set up Docker buildx'
         id: buildx
