@@ -1,7 +1,5 @@
 all: build
 
-DOCKERHUB	= YES
-
 PACKAGE		?=
 NAMESPACE	= ghcr.io/mesh-adaptation
 IMAGE		= $(PACKAGE)-parmmg
