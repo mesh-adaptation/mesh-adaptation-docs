@@ -23,7 +23,7 @@ jobs:
         uses: tj-actions/changed-files@v44
         with:
           files: |
-            .github/workflows/docker.yml
+            .github/workflows/docker_petsc.yml
             .github/workflows/Dockerfile.petsc
 
       - name: 'Set up Docker buildx'

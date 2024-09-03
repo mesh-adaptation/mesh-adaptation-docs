@@ -27,7 +27,7 @@ jobs:
         uses: tj-actions/changed-files@v44
         with:
           files: |
-            .github/workflows/docker.yml
+            .github/workflows/docker_firedrake.yml
             .github/workflows/Dockerfile.firedrake
 
       - name: 'Set up Docker buildx'
