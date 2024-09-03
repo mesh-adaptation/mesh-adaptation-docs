@@ -40,7 +40,17 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           logout: true
 
-      - name: 'Build container and push to GitHub Container Repository'
+      - name: 'Build PETSc container and push to GitHub Container Repository'
+        id: build-and-push
+        if: ${{ (steps.changed-files.outputs.any_changed == 'true') || ( github.event_name == 'schedule') }}
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          no-cache: true
+          file: docker/Dockerfile.petsc
+          tags: ghcr.io/mesh-adaptation/petsc-parmmg:latest
+
+      - name: 'Build Firedrake container and push to GitHub Container Repository'
         id: build-and-push
         if: ${{ (steps.changed-files.outputs.any_changed == 'true') || ( github.event_name == 'schedule') }}
         uses: docker/build-push-action@v5
