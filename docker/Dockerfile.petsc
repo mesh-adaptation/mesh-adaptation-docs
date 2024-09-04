@@ -35,7 +35,8 @@ WORKDIR /home/firedrake
 RUN git clone https://github.com/firedrakeproject/petsc.git
 
 # Build MPICH manually because we don't want PETSc to build it twice
-RUN bash -c 'cd petsc; \
+RUN bash -c 'export PACKAGES=/home/firedrake/petsc/packages; \
+    cd petsc; \
     ./configure \
         --COPTFLAGS=-O3 -march=native -mtune=native \
         --CXXOPTFLAGS=-O3 -march=native -mtune=native \
@@ -64,8 +65,8 @@ RUN bash -c 'cd petsc; \
         --download-scalapack \
         --download-suitesparse \
         --download-superlu_dist \
-        PETSC_ARCH=packages; \
-        mv packages/include/petscconf.h packages/include/old_petscconf.nope;'
+        PETSC_ARCH=${PACKAGES}; \
+        mv ${PACKAGES}/include/petscconf.h ${PACKAGES}/include/old_petscconf.nope;'
 # Don't run make here, we only want MPICH and HWLOC
 # It is also necessary to move `petscconf.h` so packages isn't treated like a working PETSc
 
