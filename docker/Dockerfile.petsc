@@ -103,7 +103,7 @@ RUN bash -c 'export PACKAGES=/home/firedrake/petsc/packages; \
         --with-superlu_dist-dir=${PACKAGES} \
         PETSC_ARCH=default; \
     make PETSC_DIR=/home/firedrake/petsc PETSC_ARCH=default all; \
-    mv ${PACKAGES}/eigen3/Eigen ${PACKAGES}'
+    mv ${PACKAGES}/include/eigen3/Eigen ${PACKAGES}/include'
 
 # Clean up unnecessary files
 RUN rm -rf /home/firedrake/petsc/**/externalpackages \
