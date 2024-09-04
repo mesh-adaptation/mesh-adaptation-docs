@@ -10,7 +10,7 @@ on:
 
 jobs:
   docker:
-    name: 'Build Docker container'
+    name: 'Build PETSc Docker container'
     runs-on: ubuntu-latest
     steps:
       - name: 'Check out the repo'

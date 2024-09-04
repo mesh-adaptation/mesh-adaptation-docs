@@ -3,7 +3,7 @@ name: 'Build bespoke Firedrake Docker container'
 on:
   # Build the Docker container if the PETSc one builds successfully
   workflow_run:
-    workflows: ['Build bespoke PETSc Docker container']
+    workflows: ['Build PETSc Docker container']
     types:
       - completed
 
@@ -14,7 +14,7 @@ on:
 jobs:
   docker:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: 'Build Docker container'
+    name: 'Build Firedrake Docker container'
     runs-on: ubuntu-latest
     steps:
       - name: 'Check out the repo'
