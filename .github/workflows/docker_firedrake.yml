@@ -1,19 +1,15 @@
 name: 'Build bespoke Firedrake Docker container'
 
 on:
-  # Build the Docker container if the PETSc one builds successfully
-  workflow_run:
-    workflows: ['Build PETSc Docker container']
-    types:
-      - completed
+  # Build the Docker container whenever commits are pushed to an open PR
+  pull_request:
 
   # Build the Docker container every Saturday at 1AM
   schedule:
-    - cron: '0 1 * * 6'
+    - cron: '0 2 * * 6'
 
 jobs:
   docker:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: 'Build Firedrake Docker container'
     runs-on: ubuntu-latest
     steps:
