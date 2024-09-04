@@ -65,7 +65,7 @@ RUN bash -c 'export PACKAGES=/home/firedrake/petsc/packages; \
         --download-scalapack \
         --download-suitesparse \
         --download-superlu_dist \
-        PETSC_ARCH=${PACKAGES}; \
+        PETSC_ARCH=packages; \
         mv ${PACKAGES}/include/petscconf.h ${PACKAGES}/include/old_petscconf.nope;'
 # Don't run make here, we only want MPICH and HWLOC
 # It is also necessary to move `petscconf.h` so packages isn't treated like a working PETSc
