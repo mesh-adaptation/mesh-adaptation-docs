@@ -17,7 +17,12 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: 'Check citation'
+      - name: 'Install cffconvert'
         run: |
           pip install cffconvert
-          make check_citation
+
+      - name: 'Check citation formatting'
+        run: |
+          echo "Checking CITATION.cff formatting..."
+          cffconvert --validate
+          echo "PASS"
