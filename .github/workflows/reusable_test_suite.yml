@@ -48,7 +48,7 @@ jobs:
         if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (steps.changed-files.outcome == 'success' && steps.changed-files.outputs.any_changed == 'true') || github.event_name == 'schedule' }}
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.12'
 
       - name: 'Install Package'
         if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (steps.changed-files.outcome == 'success' && steps.changed-files.outputs.any_changed == 'true') || github.event_name == 'schedule' }}
