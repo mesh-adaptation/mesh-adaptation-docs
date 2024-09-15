@@ -2,11 +2,6 @@ name: 'Reusable Citation Check'
 
 on:
   workflow_call:
-    inputs:
-      python-version:
-        required: false
-        type: string
-        default: '3.8'
 
 jobs:
   citation_check:
@@ -20,7 +15,7 @@ jobs:
       - name: 'Setup Python'
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ inputs.python-version }}
+          python-version: '3.8'
 
       - name: 'Check citation'
         run: |
