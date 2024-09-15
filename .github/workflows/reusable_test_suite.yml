@@ -1,0 +1,74 @@
+name: 'Reusable Test Suite'
+
+on:
+  workflow_call:
+    inputs:
+      install-command:
+        description: 'Command to install the package'
+        required: true
+        type: string
+      test-command:
+        description: 'Command to run the tests'
+        required: true
+        type: string
+      changed-files-patterns:
+        description: 'File patterns to check for changes'
+        required: true
+        type: string
+
+# Cancel jobs running if new commits are pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test_suite:
+    name: 'Test suite'
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/mesh-adaptation/firedrake-parmmg:latest
+      options: --user root
+
+    steps:
+      - name: 'Check out the repo'
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: 'Determine files differing from target branch'
+        id: changed-files
+        if: ${{ github.event_name != 'push' && github.ref != 'refs/heads/main' }}
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            .github/workflows/test_suite.yml
+            ${{ inputs.changed-files-patterns }}
+
+      - name: 'Cleanup'
+        if: ${{ always() }}
+        run: |
+          cd ..
+          rm -rf build
+
+      - name: 'Setup Python'
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (steps.changed-files.outcome == 'success' && steps.changed-files.outputs.any_changed == 'true') || github.event_name == 'schedule' }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: 'Install Package'
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (steps.changed-files.outcome == 'success' && steps.changed-files.outputs.any_changed == 'true') || github.event_name == 'schedule' }}
+        run: |
+          . /home/firedrake/firedrake/bin/activate
+          ${{ inputs.install-command }}
+
+      - name: 'Lint'
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (steps.changed-files.outcome == 'success' && steps.changed-files.outputs.any_changed == 'true') || github.event_name == 'schedule' }}
+        run: |
+          . /home/firedrake/firedrake/bin/activate
+          make lint
+
+      - name: 'Run Tests'
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (steps.changed-files.outcome == 'success' && steps.changed-files.outputs.any_changed == 'true') || github.event_name == 'schedule' }}
+        run: |
+          . /home/firedrake/firedrake/bin/activate
+          ${{ inputs.test-command }}

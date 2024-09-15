@@ -1,0 +1,28 @@
+name: 'Reusable Citation Check'
+
+on:
+  workflow_call:
+
+jobs:
+  citation_check:
+    name: 'Check Citation'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Check out the repo'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Python'
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: 'Install cffconvert'
+        run: |
+          pip install cffconvert
+
+      - name: 'Check citation formatting'
+        run: |
+          echo "Checking CITATION.cff formatting..."
+          cffconvert --validate
+          echo "PASS"
