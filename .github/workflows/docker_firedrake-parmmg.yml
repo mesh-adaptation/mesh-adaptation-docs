@@ -1,0 +1,19 @@
+name: 'Build bespoke Firedrake Docker container'
+
+on:
+  # Build the Docker container whenever commits are pushed to an open PR
+  pull_request:
+
+  # Build the Docker container every Saturday at 2AM
+  schedule:
+    - cron: '0 2 * * 6'
+
+jobs:
+  docker:
+    uses: ./.github/workflows/reusable_docker_build.yml
+    with:
+      dockerfile-path: 'docker/Dockerfile.firedrake'
+      docker-image-tag: 'ghcr.io/mesh-adaptation/firedrake-parmmg:latest'
+      changed-files: |
+        .github/workflows/docker_firedrake-parmmg.yml
+        docker/Dockerfile.firedrake
