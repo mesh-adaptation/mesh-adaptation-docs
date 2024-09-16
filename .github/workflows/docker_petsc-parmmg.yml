@@ -1,0 +1,19 @@
+name: 'Build bespoke PETSc Docker container'
+
+on:
+  # Build the Docker container whenever commits are pushed to an open PR
+  pull_request:
+
+  # Build the Docker container every Saturday at 1AM
+  schedule:
+    - cron: '0 1 * * 6'
+
+jobs:
+  docker:
+    uses: ./.github/workflows/reusable_docker_build.yml
+    with:
+      dockerfile-path: 'docker/Dockerfile.petsc'
+      docker-image-tag: 'ghcr.io/mesh-adaptation/petsc-parmmg:latest'
+      changed-files: |
+        .github/workflows/docker_petsc-parmmg.yml
+        docker/Dockerfile.petsc
