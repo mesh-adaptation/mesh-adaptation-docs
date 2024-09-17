@@ -1,9 +1,12 @@
-.. title:: Animate, Movement and Goalie
+.. title:: mesh-adaptation
 
 .. only:: html
 
-Welcome to the documentation for Animate, Movement and Goalie!
-==============================================================
+Welcome to the documentation for mesh-adaptation!
+=================================================
+
+The `mesh-adaptation <https://github.com/mesh-adaptation/>`__ GitHub organisation hosts
+several mesh adaptation packages for Firedrake.
 
 `Animate <animate/index.html>`__ is a package which provides anisotropic mesh adaptation
 functionality for the Python-based finite element library

@@ -57,7 +57,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "Animate, Movement and Goalie"
+project = "mesh-adaptation"
 copyright = f"2021-{datetime.datetime.now().year}, Joseph G. Wallwork et al."
 author = "Joseph G. Wallwork et al."
 
@@ -98,7 +98,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "nature"
+html_theme = "alabaster"
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = ["_themes"]
 
@@ -178,11 +178,11 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "Animate, Movement and Goalie",
+        "mesh-adaptation",
         "Documentation for Animate, Movement and Goalie",
         author,
-        "Animate, Movement and Goalie",
-        "Animate, Movement and Goalie Mesh Adaptation Toolkits",
+        "mesh-adaptation",
+        "Mesh Adaptation Toolkits",
         "Miscellaneous",
     ),
 ]
