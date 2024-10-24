@@ -59,7 +59,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "Animate, Movement and Goalie"
+project = "Animate, Movement, Goalie and UM2N"
 copyright = f"2021-{datetime.datetime.now().year}, Joseph G. Wallwork et al."
 author = "Joseph G. Wallwork et al."
 
@@ -71,6 +71,7 @@ author = "Joseph G. Wallwork et al."
 import animate
 import movement
 import goalie
+import UM2N
 
 version = "0.1"
 # The full version, including alpha/beta/rc tags.
@@ -127,7 +128,7 @@ html_context = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "Goaliedoc"
+htmlhelp_basename = "meshadaptdoc"
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -153,8 +154,8 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "Animate_Goalie.tex",
-        "Documentation for Animate, Movement and Goalie",
+        "mesh-adaptation.tex",
+        "Documentation for Animate, Movement, Goalie and UM2N",
         "Joseph G. Wallwork et al.",
         "manual",
     ),
@@ -168,7 +169,8 @@ latex_documents = [
 man_pages = [
     (master_doc, "Animate", "Animate documentation", [author], 1),
     (master_doc, "Movement", "Movement documentation", [author], 1),
-    (master_doc, "goalie", "Goalie documentation", [author], 1),
+    (master_doc, "Goalie", "Goalie documentation", [author], 1),
+    (master_doc, "UM2N", "UM2N documentation", [author], 1),
 ]
 
 
@@ -180,11 +182,11 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "Animate, Movement and Goalie",
-        "Documentation for Animate, Movement and Goalie",
+        "Animate, Movement, Goalie and UM2N",
+        "Documentation for Animate, Movement, Goalie and UM2N",
         author,
-        "Animate, Movement and Goalie",
-        "Animate, Movement and Goalie Mesh Adaptation Toolkits",
+        "Animate, Movement, Goalie and UM2N",
+        "Animate, Movement, Goalie and UM2N Mesh Adaptation Toolkits",
         "Miscellaneous",
     ),
 ]
