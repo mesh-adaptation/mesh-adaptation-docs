@@ -41,6 +41,8 @@ extensions = [
     "sphinx.ext.autosectionlabel",
 ]
 
+autodoc_mock_imports = ["torch", "torch_geometric", "pytorch3d"]
+
 # Make sure the target is unique
 autosectionlabel_prefix_document = True
 

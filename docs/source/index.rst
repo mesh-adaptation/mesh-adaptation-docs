@@ -30,6 +30,8 @@ and the metric-based approach. Goalie uses a 'fixed-point iteration' approach,
 meaning that the PDE (and its adjoint) is solved over the whole space-time domain
 whenever mesh adaptation is applied.
 
+`UM2N <UM2N/index.html>`__
+
 .. rubric:: Mathematical background
 
 We refer to the

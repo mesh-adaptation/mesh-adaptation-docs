@@ -12,6 +12,7 @@ PYTHON        = ${VIRTUAL_ENV}/bin/python3
 ANIMATE       = ${VIRTUAL_ENV}/src/animate
 MOVEMENT      = ${VIRTUAL_ENV}/src/movement
 GOALIE        = ${VIRTUAL_ENV}/src/goalie
+UM2N          = ${VIRTUAL_ENV}/src/UM2N
 
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -64,6 +65,7 @@ copy_demos:
 	install -d $(BUILDDIR)/html/animate
 	install -d $(BUILDDIR)/html/goalie
 	install -d $(BUILDDIR)/html/movement
+	install -d $(BUILDDIR)/html/UM2N
 	mkdir -p $(BUILDDIR)/html/_images
 	cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
 	cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
@@ -85,6 +87,7 @@ apidoc:
 	$(SPHINXAPIDOC) $$(python3 -c "import animate; import os; print(os.path.dirname(animate.__file__))") -o source -f -T
 	$(SPHINXAPIDOC) $$(python3 -c "import goalie; import os; print(os.path.dirname(goalie.__file__))") -o source -f -T
 	$(SPHINXAPIDOC) $$(python3 -c "import movement; import os; print(os.path.dirname(movement.__file__))") -o source -f -T
+	$(SPHINXAPIDOC) $$(python3 -c "import UM2N; import os; print(os.path.dirname(UM2N.__file__))") -o source -f -T
 
 clean:
 	-git clean -fdx $(BUILDDIR)/html/
