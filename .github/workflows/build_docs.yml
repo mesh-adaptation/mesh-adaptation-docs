@@ -1,0 +1,51 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 6'
+
+jobs:
+  build_docs:
+    name: Build Mesh Adaptation Documentation
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/mesh-adaptation/firedrake-parmmg:latest
+      options: --user root
+      volumes:
+        - ${{ github.workspace }}:/home/firedrake/output
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build HTML Documentation
+        run: |
+          . /home/firedrake/bin/activate
+          cd docs
+          make html
+        working-directory: /home/firedrake/output/mesh-adaptation-docs
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          name: github-pages
+          path: /home/firedrake/output/mesh-adaptation-docs/docs/build/html
+          retention-days: 1
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build_docs
+    if: ${{ github.ref == 'refs/heads/main' }}
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: https://mesh-adaptation.github.io
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
