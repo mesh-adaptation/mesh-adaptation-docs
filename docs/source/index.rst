@@ -1,9 +1,9 @@
-.. title:: Animate, Movement and Goalie
+.. title:: Animate, Movement, Goalie and UM2N
 
 .. only:: html
 
-Welcome to the documentation for Animate, Movement and Goalie!
-==============================================================
+Welcome to the documentation for Animate, Movement, Goalie and UM2N!
+====================================================================
 
 `Animate <animate/index.html>`__ is a package which provides anisotropic mesh adaptation
 functionality for the Python-based finite element library
@@ -30,6 +30,9 @@ and the metric-based approach. Goalie uses a 'fixed-point iteration' approach,
 meaning that the PDE (and its adjoint) is solved over the whole space-time domain
 whenever mesh adaptation is applied.
 
+`UM2N <UM2N/index.html>`__ is an end-to-end machine-learning based implementation of
+mesh movement.
+
 .. rubric:: Mathematical background
 
 We refer to the
@@ -40,12 +43,14 @@ contains some
 `excellent documentation <http://www.dolfin-adjoint.org/en/latest/documentation/maths/index.html>`__
 on the mathematical background of adjoint problems. The metric-based mesh adaptation,
 mesh movement, and goal-oriented error estimation functionalities provided by
-`Animate <animate/index.html>`__, `Movement <movement/index.html>`__ and
-`Goalie <goalie/index.html>`__ are described in the respective manuals.
+`Animate <animate/index.html>`__, `Movement <movement/index.html>`__,
+`Goalie <goalie/index.html>`__ and `UM2N <UM2N/index.html>`__ are described in the
+respective manuals.
 
 .. rubric:: Source code
 
-The source codes for all three packages are hosted on GitHub:
+The source codes for all four packages are hosted on GitHub:
 `Animate <https://github.com/mesh-adaptation/animate/>`__,
 `Movement <https://github.com/mesh-adaptation/movement/>`__,
 `Goalie <https://github.com/mesh-adaptation/goalie/>`__.
+`UM2N <https://github.com/mesh-adaptation/UM2N/>`__.
