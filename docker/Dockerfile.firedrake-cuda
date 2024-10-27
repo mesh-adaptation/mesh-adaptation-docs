@@ -1,0 +1,43 @@
+FROM ghcr.io/mesh-adaptation/petsc-parmmg
+
+USER root
+RUN apt-get update && \
+        apt-get install -y --no-install-recommends \
+        nvidia-cuda-toolkit \
+        nvidia-cuda-toolkit-gcc && \
+    rm -rf var/lib/apt/lists/*
+
+USER firedrake
+WORKDIR /home/firedrake
+
+ENV PETSC_ARCH default
+
+# Build Firedrake and install additional packages
+RUN curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/scripts/firedrake-install
+RUN bash -c "python3 firedrake-install \
+    --no-package-manager \
+    --disable-ssh \
+    --honour-petsc-dir \
+    --mpicc=${MPICH_DIR}/mpicc \
+    --mpicxx=${MPICH_DIR}/mpicxx \
+    --mpif90=${MPICH_DIR}/mpif90 \
+    --mpiexec=${MPICH_DIR}/mpiexec \
+    --install thetis && \
+    source firedrake/bin/activate && \
+	  cd firedrake/src && \
+	  git clone https://github.com/mesh-adaptation/animate.git && \
+	  git clone https://github.com/mesh-adaptation/movement.git && \
+	  git clone https://github.com/mesh-adaptation/goalie.git && \
+	  cd animate && \
+	  make install && \
+	  cd ../movement && \
+	  make install && \
+	  cd ../goalie && \
+	  make install"
+
+# Install Pytorch and its dependencies
+RUN source firedrake/bin/activate && \
+    pip3 install torch torchvision torchaudio
+
+USER root
+RUN apt-get clean && rm -rf /tmp/* /var/tmp/*
