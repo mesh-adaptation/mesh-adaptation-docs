@@ -1,11 +1,13 @@
 name: 'Build bespoke PETSc Docker container'
 
 on:
+  # Check that Docker build succeeds when these files get changed in an open PR
   pull_request:
     paths:
       - '.github/workflows/docker_petsc-parmmg.yml'
       - 'docker/Dockerfile.petsc'
 
+  # Build and push the Docker container when these files get changed on the main branch
   push:
     branches:
       - main
@@ -13,6 +15,7 @@ on:
       - '.github/workflows/docker_petsc-parmmg.yml'
       - 'docker/Dockerfile.petsc'
 
+  # Build and push the Docker container every Saturday at 1AM
   schedule:
     - cron: '0 1 * * 6'
 
