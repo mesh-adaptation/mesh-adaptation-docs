@@ -4,8 +4,6 @@ on:
   # Check that Docker build succeeds when these files get changed in an open PR
   pull_request:
     paths:
-      - '.github/workflows/docker_petsc-parmmg.yml'
-      - 'docker/Dockerfile.petsc'
       - '.github/workflows/docker_firedrake-parmmg.yml'
       - 'docker/Dockerfile.firedrake'
 
@@ -14,10 +12,14 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/docker_petsc-parmmg.yml'
-      - 'docker/Dockerfile.petsc'
       - '.github/workflows/docker_firedrake-parmmg.yml'
       - 'docker/Dockerfile.firedrake'
+
+  # Trigger this workflow when docker_petsc-parmmg.yml completes successfully
+  workflow_run:
+    workflows: ['Build bespoke PETSc Docker container']
+    types:
+      - completed
 
   # Build and push the Docker container every Saturday at 2AM
   schedule:
