@@ -1,12 +1,25 @@
 name: 'Build bespoke Firedrake Docker container'
 
 on:
-  # Build the Docker container whenever commits are pushed to an open PR
+  # Check that Docker build succeeds when these files get changed in an open PR
   pull_request:
+    paths:
+      - '.github/workflows/docker_firedrake-parmmg.yml'
+      - 'docker/Dockerfile.firedrake'
 
-  # Build the Docker container every Saturday at 2AM
-  schedule:
-    - cron: '0 2 * * 6'
+  # Build and push the Docker container when these files get changed on the main branch
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/docker_firedrake-parmmg.yml'
+      - 'docker/Dockerfile.firedrake'
+
+  # Trigger this workflow when docker_petsc-parmmg.yml completes on the main branch
+  workflow_run:
+    workflows: ['Build bespoke PETSc Docker container']
+    types:
+      - completed
 
 jobs:
   docker:
@@ -14,6 +27,3 @@ jobs:
     with:
       dockerfile-path: 'docker/Dockerfile.firedrake'
       docker-image-tag: 'ghcr.io/mesh-adaptation/firedrake-parmmg:latest'
-      changed-files: |
-        .github/workflows/docker_firedrake-parmmg.yml
-        docker/Dockerfile.firedrake
