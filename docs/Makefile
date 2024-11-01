@@ -47,28 +47,28 @@ source/demos: copy_demos
 copy_demos:
 	install -d source/demos
 	cp ${ANIMATE}/demos/*.py source/demos
-	cp ${ANIMATE}/demos/*.jpg source/demos
+	# cp ${ANIMATE}/demos/*.jpg source/demos
 	cp ${ANIMATE}/demos/demo_references.bib source/demos
 	cp ${GOALIE}/demos/*.py source/demos
-	cp ${GOALIE}/demos/*.jpg source/demos
+	# cp ${GOALIE}/demos/*.jpg source/demos
 	cat ${GOALIE}/demos/demo_references.bib >> source/demos/demo_references.bib
 	cp ${MOVEMENT}/demos/*.py source/demos
-	cp ${MOVEMENT}/demos/*.jpg source/demos
+	# cp ${MOVEMENT}/demos/*.jpg source/demos
 	cat ${MOVEMENT}/demos/demo_references.bib >> source/demos/demo_references.bib
 	for FILE in source/demos/*.py; do \
 		pylit -c $$FILE; mv $$FILE.txt $$FILE.rst; \
 	done
 	install -d $(BUILDDIR)/html/demos
 	cp source/demos/*.py $(BUILDDIR)/html/demos
-	cp source/demos/*.jpg $(BUILDDIR)/html/demos
+	# cp source/demos/*.jpg $(BUILDDIR)/html/demos
 	cp source/demos/*.bib $(BUILDDIR)/html/demos
 	install -d $(BUILDDIR)/html/animate
 	install -d $(BUILDDIR)/html/goalie
 	install -d $(BUILDDIR)/html/movement
 	install -d $(BUILDDIR)/html/UM2N
 	mkdir -p $(BUILDDIR)/html/_images
-	cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
-	cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
+	# cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
+	# cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
 	# cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
 
 SPHINX_TARGETS = dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub \
