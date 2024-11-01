@@ -71,7 +71,7 @@ author = "Joseph G. Wallwork et al."
 import animate
 import movement
 import goalie
-import UM2N
+# import UM2N
 
 version = "0.1"
 # The full version, including alpha/beta/rc tags.
