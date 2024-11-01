@@ -47,28 +47,28 @@ source/demos: copy_demos
 copy_demos:
 	install -d source/demos
 	cp ${ANIMATE}/demos/*.py source/demos
-	cp ${ANIMATE}/demos/*.jpg source/demos
+	# cp ${ANIMATE}/demos/*.jpg source/demos
 	cp ${ANIMATE}/demos/demo_references.bib source/demos
 	cp ${GOALIE}/demos/*.py source/demos
-	cp ${GOALIE}/demos/*.jpg source/demos
+	# cp ${GOALIE}/demos/*.jpg source/demos
 	cat ${GOALIE}/demos/demo_references.bib >> source/demos/demo_references.bib
 	cp ${MOVEMENT}/demos/*.py source/demos
-	cp ${MOVEMENT}/demos/*.jpg source/demos
+	# cp ${MOVEMENT}/demos/*.jpg source/demos
 	cat ${MOVEMENT}/demos/demo_references.bib >> source/demos/demo_references.bib
 	for FILE in source/demos/*.py; do \
 		pylit -c $$FILE; mv $$FILE.txt $$FILE.rst; \
 	done
 	install -d $(BUILDDIR)/html/demos
 	cp source/demos/*.py $(BUILDDIR)/html/demos
-	cp source/demos/*.jpg $(BUILDDIR)/html/demos
+	# cp source/demos/*.jpg $(BUILDDIR)/html/demos
 	cp source/demos/*.bib $(BUILDDIR)/html/demos
 	install -d $(BUILDDIR)/html/animate
 	install -d $(BUILDDIR)/html/goalie
 	install -d $(BUILDDIR)/html/movement
-	install -d $(BUILDDIR)/html/UM2N
+	# install -d $(BUILDDIR)/html/UM2N
 	mkdir -p $(BUILDDIR)/html/_images
-	cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
-	cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
+	# cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
+	# cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
 	# cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
 
 SPHINX_TARGETS = dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub \
@@ -87,7 +87,7 @@ apidoc:
 	$(SPHINXAPIDOC) $$(python3 -c "import animate; import os; print(os.path.dirname(animate.__file__))") -o source -f -T
 	$(SPHINXAPIDOC) $$(python3 -c "import goalie; import os; print(os.path.dirname(goalie.__file__))") -o source -f -T
 	$(SPHINXAPIDOC) $$(python3 -c "import movement; import os; print(os.path.dirname(movement.__file__))") -o source -f -T
-	$(SPHINXAPIDOC) $$(python3 -c "import UM2N; import os; print(os.path.dirname(UM2N.__file__))") -o source -f -T
+	# $(SPHINXAPIDOC) $$(python3 -c "import UM2N; import os; print(os.path.dirname(UM2N.__file__))") -o source -f -T
 
 clean:
 	-git clean -fdx $(BUILDDIR)/html/
