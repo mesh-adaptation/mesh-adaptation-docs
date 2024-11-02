@@ -69,7 +69,7 @@ copy_demos:
 	mkdir -p $(BUILDDIR)/html/_images
 	cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
 	cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
-	cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
+	# cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
 
 SPHINX_TARGETS = dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub \
 	latex latexpdf latexpdfja text man texinfo info gettext changes \
