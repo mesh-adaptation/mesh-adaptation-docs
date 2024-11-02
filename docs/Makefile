@@ -67,9 +67,9 @@ copy_demos:
 	install -d $(BUILDDIR)/html/movement
 	# install -d $(BUILDDIR)/html/UM2N
 	mkdir -p $(BUILDDIR)/html/_images
-	# cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
-	# cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
-	# cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
+	cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
+	cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
+	cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
 
 SPHINX_TARGETS = dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub \
 	latex latexpdf latexpdfja text man texinfo info gettext changes \
