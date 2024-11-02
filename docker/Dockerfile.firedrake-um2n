@@ -9,7 +9,6 @@ WORKDIR /home/firedrake
 RUN bash -c "source firedrake/bin/activate && \
 	  cd firedrake/src && \
     python3 -m pip install torch torchvision torchaudio && \
-    python3 -m pip install 'git+https://github.com/facebookresearch/pytorch3d' && \
 	  git clone https://github.com/mesh-adaptation/movement.git && \
 	  git clone https://github.com/mesh-adaptation/UM2N.git && \
 	  cd movement && \
