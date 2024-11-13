@@ -90,7 +90,7 @@ The metric-based framework has been the main backend used for
 goal-oriented mesh adaptation during the development of Goalie.
 However, this does not mean other approaches would not work.
 Mesh movement (or :math:`r`-adaptation) has been implemented in
-Firedrake on a number of occasions (such as :cite:`MCB:18,CWK+:22`)
+Firedrake on a number of occasions (such as :cite:`McRae:2018,Clare:2022`)
 and could plausibly be driven by goal-oriented error estimates.
 
 Fixed point iteration loops
@@ -154,4 +154,5 @@ similarly deduced if the error estimate value changes by less than
 References
 ----------
 
-.. bibliography:: 3-references.bib
+.. bibliography::
+   :filter: docname in docnames

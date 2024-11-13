@@ -56,7 +56,7 @@ governed by the PDE
 
 where :math:`\mathbf u` is the advective velocity, :math:`D` is the
 diffusion coefficient and :math:`S` represents the source term.
-Consider the "point discharge with diffusion" test case from :cite:`RCJ:14`.
+Consider the "point discharge with diffusion" test case from :cite:`Riadh:2014`.
 That is, we have a rectangular domain, within which the fluid velocity
 goes uniformly from left to right, i.e. :math:`\mathbf u=(1,0)`.
 In such a case, we have an inflow across the left-hand boundary and
@@ -70,7 +70,7 @@ channel sides, we are able to formulate and solve the problem numerically.
    :align: center
 
    Finite element solution of the tracer transport problem.
-   Image taken from :cite:`WBHP:22` with authors' permission.
+   Image taken from :cite:`Wallwork:2022` with authors' permission.
 
 In the above plot, the source term is centred at :math:`(2,5)`.
 Tracer concentration is released, advected to the right and diffused
@@ -97,7 +97,7 @@ below.
    :align: center
 
    Finite element solution of the adjoint tracer transport problem.
-   Image taken from :cite:`WBHP:22` with authors' permission.
+   Image taken from :cite:`Wallwork:2022` with authors' permission.
 
 Here the receiver region becomes a `source` for the adjoint problem.
 Further, where the flow goes from left to right in the forward
@@ -138,7 +138,7 @@ meshes.
    :align: center
 
    Goal-oriented adapted meshes generated using various metric strategies.
-   Images taken from :cite:`WBHP:22` with authors' permission.
+   Images taken from :cite:`Wallwork:2022` with authors' permission.
 
 The adapted meshes take rather different forms, but there are a number of
 features that they have in common. For example, each of them deploy most
@@ -153,4 +153,5 @@ ideas and fundamental mathematical results.
 References
 ----------
 
-.. bibliography:: 1-references.bib
+.. bibliography::
+   :filter: docname in docnames
