@@ -17,7 +17,7 @@ UM2N          = ${VIRTUAL_ENV}/src/UM2N
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: apidoc help clean copy_demos
+.PHONY: apidoc help clean copy_demos copy_refs
 
 GENERATED_FILES = source/demos
 
@@ -42,26 +42,26 @@ run_movement_demos:
 	done; \
 	cd . \
 
-source/demos: copy_demos
+source/demos: copy_demos copy_refs
 
 copy_demos:
 	install -d source/demos
 	cp ${ANIMATE}/demos/*.py source/demos
 	cp ${ANIMATE}/demos/*.jpg source/demos
-	cp ${ANIMATE}/demos/demo_references.bib source/demos
+	cp ${ANIMATE}/demos/*.svg source/demos
+	
 	cp ${GOALIE}/demos/*.py source/demos
 	cp ${GOALIE}/demos/*.jpg source/demos
-	cat ${GOALIE}/demos/demo_references.bib >> source/demos/demo_references.bib
+	
 	cp ${MOVEMENT}/demos/*.py source/demos
 	cp ${MOVEMENT}/demos/*.jpg source/demos
-	cat ${MOVEMENT}/demos/demo_references.bib >> source/demos/demo_references.bib
+	
 	for FILE in source/demos/*.py; do \
 		pylit -c $$FILE; mv $$FILE.txt $$FILE.rst; \
 	done
 	install -d $(BUILDDIR)/html/demos
 	cp source/demos/*.py $(BUILDDIR)/html/demos
 	cp source/demos/*.jpg $(BUILDDIR)/html/demos
-	cp source/demos/*.bib $(BUILDDIR)/html/demos
 	install -d $(BUILDDIR)/html/animate
 	install -d $(BUILDDIR)/html/goalie
 	install -d $(BUILDDIR)/html/movement
@@ -70,6 +70,13 @@ copy_demos:
 	cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
 	cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
 	# cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
+
+copy_refs:
+	cp /dev/null source/references.bib
+	cat ${ANIMATE}/demos/demo_references.bib >> source/references.bib
+	cat ${GOALIE}/demos/demo_references.bib >> source/references.bib
+	cat ${MOVEMENT}/demos/demo_references.bib >> source/references.bib
+	cat source/source_references.bib >> source/references.bib
 
 SPHINX_TARGETS = dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub \
 	latex latexpdf latexpdfja text man texinfo info gettext changes \

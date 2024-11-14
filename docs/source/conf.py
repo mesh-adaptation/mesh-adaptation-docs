@@ -39,7 +39,6 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinxcontrib.bibtex",
     "sphinx.ext.autosectionlabel",
-    # "sphinxcontrib.inkscapeconverter",
 ]
 
 autodoc_mock_imports = ["torch", "torch_geometric", "pytorch3d"]
