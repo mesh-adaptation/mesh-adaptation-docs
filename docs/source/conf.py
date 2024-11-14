@@ -39,6 +39,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinxcontrib.bibtex",
     "sphinx.ext.autosectionlabel",
+    # "sphinxcontrib.inkscapeconverter",
 ]
 
 autodoc_mock_imports = ["torch", "torch_geometric", "pytorch3d"]
@@ -71,7 +72,7 @@ author = "Joseph G. Wallwork et al."
 import animate
 import movement
 import goalie
-import UM2N
+import warpmesh #ej321
 
 version = "0.1"
 # The full version, including alpha/beta/rc tags.
@@ -124,6 +125,13 @@ html_context = {
     "css_files": ["_static/custom.css"],
 }
 
+# Modify content of sidebar to not include next/previous sections
+# as they are not currently used
+# reference:
+# https://stackoverflow.com/questions/18969093/how-to-include-the-toctree-in-the-sidebar-of-each-page
+html_sidebars = {
+    '**': ['localtoc.html', 'sourcelink.html', 'searchbox.html'] 
+}
 
 # -- Options for HTMLHelp output ------------------------------------------
 
@@ -204,10 +212,5 @@ autoclass_content = "both"
 
 #  -- Options for sphinxcontrib.bibtex ------------------------------------
 bibtex_bibfiles = [
-    "references.bib",
-    "demos/demo_references.bib",
-    "animate/1-references.bib",
-    "goalie/1-references.bib",
-    "goalie/2-references.bib",
-    "goalie/3-references.bib",
+    "references.bib"
 ]

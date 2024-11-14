@@ -389,4 +389,5 @@ metric average.
 References
 ----------
 
-.. bibliography:: references.bib
+.. bibliography::
+   :filter: docname in docnames
