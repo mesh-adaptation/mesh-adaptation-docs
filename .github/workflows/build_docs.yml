@@ -18,7 +18,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install requirements
+      - name: Install Animate and Goalie
+        run: |
+          . /home/firedrake/firedrake/bin/activate
+          cd /home/firedrake/firedrake/src/
+          git clone https://github.com/mesh-adaptation/animate.git
+          git clone https://github.com/mesh-adaptation/goalie.git
+          pip install -e animate
+          pip install -e goalie
+        working-directory: /home/firedrake/output/
+        shell: bash
+
+      - name: Install Sphinx
         run: |
           . /home/firedrake/firedrake/bin/activate
           python3 -m pip install -r requirements.txt
