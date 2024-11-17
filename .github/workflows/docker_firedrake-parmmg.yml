@@ -21,6 +21,9 @@ on:
     types:
       - completed
 
+  # Manually trigger the workflow
+  workflow_dispatch:
+
 jobs:
   docker:
     uses: ./.github/workflows/reusable_docker_build.yml
