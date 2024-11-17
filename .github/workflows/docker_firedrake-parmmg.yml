@@ -20,6 +20,8 @@ on:
     workflows: ['Build bespoke PETSc Docker container']
     types:
       - completed
+    branches:
+      - main
 
   # Manually trigger the workflow
   workflow_dispatch:
