@@ -11,7 +11,7 @@ jobs:
     name: Build Mesh Adaptation Documentation
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/mesh-adaptation/firedrake-parmmg:latest
+      image: ghcr.io/mesh-adaptation/firedrake-um2n:latest
       options: --user root
       volumes:
         - ${{ github.workspace }}:/home/firedrake/output
