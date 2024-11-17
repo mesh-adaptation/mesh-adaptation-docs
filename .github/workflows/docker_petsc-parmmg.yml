@@ -24,7 +24,7 @@ on:
 
 # Stop the workflow if a new run is requested
 concurrency:
-  group: 'docker_firedrake-parmmg-${{ github.ref }}'
+  group: 'docker_petsc-parmmg-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
