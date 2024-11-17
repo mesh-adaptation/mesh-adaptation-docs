@@ -8,7 +8,7 @@ WORKDIR /home/firedrake
 
 RUN bash -c "source firedrake/bin/activate && \
 	  cd firedrake/src && \
-    python3 -m pip install torch torchvision torchaudio && \
+    python3 -m pip install torch && \
 	  git clone https://github.com/mesh-adaptation/movement.git && \
 	  git clone https://github.com/mesh-adaptation/UM2N.git && \
 	  cd movement && \
