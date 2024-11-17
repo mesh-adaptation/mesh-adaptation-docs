@@ -14,4 +14,4 @@ RUN bash -c "source firedrake/bin/activate && \
 	  cd movement && \
 	  make install && \
 	  cd ../UM2N && \
-	  python3 -m pip install"
+	  python3 -m pip install ."
