@@ -26,6 +26,11 @@ on:
   # Manually trigger the workflow
   workflow_dispatch:
 
+# Stop the workflow if a new run is requested
+concurrency:
+  group: 'docker_firedrake-parmmg-${{ github.ref }}'
+  cancel-in-progress: true
+
 jobs:
   docker:
     uses: ./.github/workflows/reusable_docker_build.yml
