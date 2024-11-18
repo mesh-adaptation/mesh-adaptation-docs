@@ -1,7 +1,7 @@
 # Dockerfile for installing Firedrake plus UM2N and its dependencies with CPU support
 
 # Based on firedrake
-FROM firedrakeproject/firedrake:2024-10
+FROM firedrakeproject/firedrake-vanilla:latest
 
 USER firedrake
 WORKDIR /home/firedrake
