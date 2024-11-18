@@ -42,7 +42,7 @@ run_movement_demos:
 	done; \
 	cd . \
 
-source/demos: copy_demos copy_refs
+source/demos: copy_demos
 
 copy_demos:
 	install -d source/demos
@@ -70,13 +70,6 @@ copy_demos:
 	cp source/animate/images/*.jpg $(BUILDDIR)/html/_images
 	cp source/goalie/images/*.jpg $(BUILDDIR)/html/_images
 	# cp source/movement/images/*.jpg $(BUILDDIR)/html/_images
-
-copy_refs:
-	cp /dev/null source/references.bib
-	cat ${ANIMATE}/demos/demo_references.bib >> source/references.bib
-	cat ${GOALIE}/demos/demo_references.bib >> source/references.bib
-	cat ${MOVEMENT}/demos/demo_references.bib >> source/references.bib
-	cat source/source_references.bib >> source/references.bib
 
 SPHINX_TARGETS = dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub \
 	latex latexpdf latexpdfja text man texinfo info gettext changes \
