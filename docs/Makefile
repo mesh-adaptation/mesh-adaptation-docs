@@ -17,7 +17,7 @@ UM2N          = ${VIRTUAL_ENV}/src/UM2N
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: apidoc help clean copy_demos copy_refs
+.PHONY: apidoc help clean copy_demos
 
 GENERATED_FILES = source/demos
 
