@@ -15,6 +15,22 @@ on:
       - '.github/workflows/docker_firedrake-um2n.yml'
       - 'docker/Dockerfile.firedrake-um2n'
 
+  # Trigger this workflow when docker_firedrake-um2n.yml completes on the main branch
+  workflow_run:
+    workflows: ['Build bespoke UM2N Docker container']
+    types:
+      - completed
+    branches:
+      - main
+
+  # Manually trigger the workflow
+  workflow_dispatch:
+
+# Stop the workflow if a new run is requested
+concurrency:
+  group: 'docker_firedrake-um2n-${{ github.ref }}'
+  cancel-in-progress: true
+
 jobs:
   docker:
     uses: ./.github/workflows/reusable_docker_build.yml
