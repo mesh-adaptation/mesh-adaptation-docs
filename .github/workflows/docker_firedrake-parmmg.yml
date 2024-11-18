@@ -20,6 +20,16 @@ on:
     workflows: ['Build bespoke PETSc Docker container']
     types:
       - completed
+    branches:
+      - main
+
+  # Manually trigger the workflow
+  workflow_dispatch:
+
+# Stop the workflow if a new run is requested
+concurrency:
+  group: 'docker_firedrake-parmmg-${{ github.ref }}'
+  cancel-in-progress: true
 
 jobs:
   docker:
