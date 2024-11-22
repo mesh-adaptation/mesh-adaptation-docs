@@ -18,6 +18,10 @@ on:
   # Manually trigger the workflow
   workflow_dispatch:
 
+  # Build and push the Docker container every Saturday at 2AM
+  schedule:
+    - cron: '0 2 * * 6'
+
 # Stop the workflow if a new run is requested
 concurrency:
   group: 'docker_firedrake-um2n-${{ github.ref }}'
