@@ -51,10 +51,8 @@ copy_demos:
 	cp ${ANIMATE}/demos/demo_references.bib source/demos
 	cp ${GOALIE}/demos/*.py source/demos
 	# cp ${GOALIE}/demos/*.jpg source/demos
-	cat ${GOALIE}/demos/demo_references.bib >> source/demos/demo_references.bib
 	cp ${MOVEMENT}/demos/*.py source/demos
 	# cp ${MOVEMENT}/demos/*.jpg source/demos
-	cat ${MOVEMENT}/demos/demo_references.bib >> source/demos/demo_references.bib
 	for FILE in source/demos/*.py; do \
 		pylit -c $$FILE; mv $$FILE.txt $$FILE.rst; \
 	done
