@@ -15,7 +15,7 @@ RUN bash -c "source firedrake/bin/activate && \
 	  make install && \
 	  python3 -m pip uninstall cffconvert -y && \
 	  cd ../UM2N && \
-	  python3 -m pip install ."
+	  python3 -m pip install -e ."
 
 # NOTE: cffconvert is not currently used in UM2N and requires a conflicting
 # version of jsonschema with other dependencies.
