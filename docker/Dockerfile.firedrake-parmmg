@@ -1,3 +1,5 @@
+# Dockerfile for installing Firedrake with mesh adaptation support via Mmg and ParMmg,
+# as well as Animate, Goalie, and Movement
 FROM ghcr.io/mesh-adaptation/petsc-parmmg
 
 USER firedrake

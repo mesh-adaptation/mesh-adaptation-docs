@@ -1,4 +1,4 @@
-# DockerFile for an environment into which firedrake can be installed. Based off
+# Dockerfile for an environment into which Firedrake can be installed. Based off
 # https://github.com/firedrakeproject/firedrake/blob/master/docker/Dockerfile.env
 
 FROM ubuntu:24.04
