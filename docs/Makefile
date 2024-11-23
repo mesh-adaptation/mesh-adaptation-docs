@@ -58,8 +58,7 @@ copy_demos:
 	done
 	install -d $(BUILDDIR)/html/demos
 	cp source/demos/*.py $(BUILDDIR)/html/demos
-	cp source/demos/*.jpg $(BUILDDIR)/html/demos
-	cp source/demos/*.bib $(BUILDDIR)/html/demos
+	# cp source/demos/*.jpg $(BUILDDIR)/html/demos
 	install -d $(BUILDDIR)/html/animate
 	install -d $(BUILDDIR)/html/goalie
 	install -d $(BUILDDIR)/html/movement
