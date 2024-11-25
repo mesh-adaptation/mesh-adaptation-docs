@@ -40,6 +40,7 @@ be searched using the inbuilt :ref:`search engine <search>`.
     Solid body rotation <../demos/solid_body_rotation.py>
     Advection-diffusion-reaction <../demos/gray_scott.py>
     Advection-diffusion-reaction with multiple prognostic variables <../demos/gray_scott_split.py>
+    Mantle convection <../demos/mantle_convection.py>
 
 *Error estimation*
 
