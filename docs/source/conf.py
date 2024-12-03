@@ -68,9 +68,9 @@ author = "Joseph G. Wallwork et al."
 # built documents.
 #
 # The short X.Y version.
+import goalie
 import animate
 import movement
-import goalie
 import UM2N
 
 version = "0.1"
@@ -213,3 +213,5 @@ autoclass_content = "both"
 bibtex_bibfiles = [
     "references.bib"
 ]
+bibtex_default_style = 'alpha'
+bibtex_reference_style = 'author_year'

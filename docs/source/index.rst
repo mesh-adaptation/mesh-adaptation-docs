@@ -59,6 +59,8 @@ The source codes for all four packages are hosted on GitHub:
    :hidden:
 
    self
+   References <references>
    Animate <animate/index>
    Movement <movement/index>
    Goalie <goalie/index>
+   UM2N <UM2N>
