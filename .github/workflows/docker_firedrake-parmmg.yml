@@ -5,7 +5,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/docker_firedrake-parmmg.yml'
-      - 'docker/Dockerfile.firedrake'
+      - 'docker/Dockerfile.firedrake-parmmg'
 
   # Build and push the Docker container when these files get changed on the main branch
   push:
@@ -13,7 +13,7 @@ on:
       - main
     paths:
       - '.github/workflows/docker_firedrake-parmmg.yml'
-      - 'docker/Dockerfile.firedrake'
+      - 'docker/Dockerfile.firedrake-parmmg'
 
   # Trigger this workflow when docker_petsc-parmmg.yml completes on the main branch
   workflow_run:
@@ -35,5 +35,5 @@ jobs:
   docker:
     uses: ./.github/workflows/reusable_docker_build.yml
     with:
-      dockerfile-path: 'docker/Dockerfile.firedrake'
+      dockerfile-path: 'docker/Dockerfile.firedrake-parmmg'
       docker-image-tag: 'ghcr.io/mesh-adaptation/firedrake-parmmg:latest'

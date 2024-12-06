@@ -68,9 +68,9 @@ author = "Joseph G. Wallwork et al."
 # built documents.
 #
 # The short X.Y version.
+import goalie
 import animate
 import movement
-import goalie
 import UM2N
 
 version = "0.1"
@@ -124,6 +124,13 @@ html_context = {
     "css_files": ["_static/custom.css"],
 }
 
+# Modify content of sidebar to not include next/previous sections
+# as they are not currently used
+# reference:
+# https://stackoverflow.com/questions/18969093/how-to-include-the-toctree-in-the-sidebar-of-each-page
+html_sidebars = {
+    '**': ['localtoc.html', 'sourcelink.html', 'searchbox.html'] 
+}
 
 # -- Options for HTMLHelp output ------------------------------------------
 
@@ -204,10 +211,7 @@ autoclass_content = "both"
 
 #  -- Options for sphinxcontrib.bibtex ------------------------------------
 bibtex_bibfiles = [
-    "references.bib",
-    "demos/demo_references.bib",
-    "animate/1-references.bib",
-    "goalie/1-references.bib",
-    "goalie/2-references.bib",
-    "goalie/3-references.bib",
+    "references.bib"
 ]
+bibtex_default_style = 'alpha'
+bibtex_reference_style = 'author_year'
