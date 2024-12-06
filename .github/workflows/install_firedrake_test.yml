@@ -54,7 +54,7 @@ jobs:
           . home/firedrake/bin/activate
           cd home/firedrake/src
           git clone https://github.com/mesh-adaptation/goalie.git
-          cd animate
+          cd goalie
           make install
           make test
 
@@ -63,6 +63,6 @@ jobs:
           . home/firedrake/bin/activate
           cd home/firedrake/src
           git clone https://github.com/mesh-adaptation/movement.git
-          cd animate
+          cd movement
           make install
           make test
