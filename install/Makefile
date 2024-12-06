@@ -59,7 +59,7 @@ ifneq ($(MPIEXEC),)
 	PETSC_CONFIGURE_OPTIONS += " --with-mpiexec=$(MPIEXEC)"
 endif
 
-.PHONY: all check_env install clean
+.PHONY: all check_env install install_no_chk clean
 
 all: clean install
 
@@ -77,11 +77,15 @@ check_env:
 	@echo "Are these settings okay? Press any key to continue or Ctrl+C to exit."
 	@read chk
 
-install: check_env
+# Install approach that doesn't require user input
+install_no_chk:
 	@cd $(BUILD_DIR); \
 		export PETSC_CONFIGURE_OPTIONS=$(PETSC_CONFIGURE_OPTIONS); \
 		curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/scripts/firedrake-install; \
 		python3 firedrake-install $(FIREDRAKE_CONFIGURE_OPTIONS)
+
+# Standard install approach that asks user to check environment setup
+install: check_env
 
 clean:
 	@rm -f $(BUILD_DIR)/firedrake-install
