@@ -40,10 +40,14 @@ jobs:
     needs: install_firedrake
 
     steps:
+      - name: 'Activate Firedrake environment'
+        run: |
+          echo "FIREDRAKE_ENV=firedrake-$(date +%b%y | tr A-Z a-z)" >> $GITHUB_ENV
+          . $FIREDRAKE_ENV/bin/activate
+
       - name: 'Install and test Animate'
         run: |
-          . home/firedrake/bin/activate
-          cd home/firedrake/src
+          cd $FIREDRAKE_ENV/src
           git clone https://github.com/mesh-adaptation/animate.git
           cd animate
           make install
@@ -51,8 +55,7 @@ jobs:
 
       - name: 'Install and test Goalie'
         run: |
-          . home/firedrake/bin/activate
-          cd home/firedrake/src
+          cd $FIREDRAKE_ENV/src
           git clone https://github.com/mesh-adaptation/goalie.git
           cd goalie
           make install
@@ -60,8 +63,7 @@ jobs:
 
       - name: 'Install and test Movement'
         run: |
-          . home/firedrake/bin/activate
-          cd home/firedrake/src
+          cd $FIREDRAKE_ENV/src
           git clone https://github.com/mesh-adaptation/movement.git
           cd movement
           make install
