@@ -3,7 +3,8 @@ name: Build and Deploy Documentation
 on:
   push:
     branches:
-      - 4_build_docs_ci
+      - main
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -55,7 +56,7 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: build_docs
-    if: ${{ github.ref == 'refs/heads/4_build_docs_ci' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     permissions:
       pages: write
       id-token: write
