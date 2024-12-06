@@ -40,9 +40,9 @@ jobs:
         run: |
           . /home/firedrake/firedrake/bin/activate
           cd docs
-          # make run_animate_demos
-          # make run_goalie_demos
-          # make run_movement_demos
+          make run_animate_demos
+          make run_goalie_demos
+          make run_movement_demos
           make html
         working-directory: /home/firedrake/output/
         shell: bash
