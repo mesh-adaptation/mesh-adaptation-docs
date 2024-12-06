@@ -33,14 +33,8 @@ jobs:
       - name: 'Install Firedrake'
         run: yes | make install
 
-  debug_install_firedrake:
-    name: 'Debug Firedrake Installation'
-    runs-on: ubuntu-latest
-    needs: install_firedrake
-    if: failure()
-
-    steps:
-      - name: 'Print firedrake-install.log'
+      - name: 'Print firedrake-install.log if installation fails'
+        if: failure()
         run: cat firedrake-install.log
 
   install_mesh_adaptation:
