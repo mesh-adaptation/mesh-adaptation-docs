@@ -1,0 +1,68 @@
+name: 'Install Firedrake and Mesh Adaptation software'
+
+on:
+  # Trigger when this or any file in the install directory changes
+  pull_request:
+    paths:
+      - 'install/**'
+      - '.github/workflows/install_firedrake_test.yml'
+
+  # Trigger the workflow every Saturday at 1AM
+  schedule:
+    - cron: '0 1 * * 6'
+
+  # Manually trigger the workflow
+  workflow_dispatch:
+
+# Stop the workflow if a new run is requested
+concurrency:
+  group: 'install_firedrake_test-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  install_firedrake:
+    name: 'Install Firedrake'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Download necessary files'
+        run: |
+          curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/Makefile
+          curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/petsc_configure_options.txt
+
+      - name: 'Install Firedrake'
+        run: |
+          yes | make install
+
+  install_mesh_adaptation:
+    name: 'Install and test Animate, Goalie and Movement'
+    runs-on: ubuntu-latest
+    needs: install_firedrake
+
+    steps:
+      - name: 'Install and test Animate'
+        run: |
+          . home/firedrake/bin/activate
+          cd home/firedrake/src
+          git clone https://github.com/mesh-adaptation/animate.git
+          cd animate
+          make install
+          make test
+
+      - name: 'Install and test Goalie'
+        run: |
+          . home/firedrake/bin/activate
+          cd home/firedrake/src
+          git clone https://github.com/mesh-adaptation/goalie.git
+          cd animate
+          make install
+          make test
+
+      - name: 'Install and test Movement'
+          run: |
+            . home/firedrake/bin/activate
+            cd home/firedrake/src
+            git clone https://github.com/mesh-adaptation/movement.git
+            cd animate
+            make install
+            make test
