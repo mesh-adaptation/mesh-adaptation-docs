@@ -59,10 +59,10 @@ jobs:
           make test
 
       - name: 'Install and test Movement'
-          run: |
-            . home/firedrake/bin/activate
-            cd home/firedrake/src
-            git clone https://github.com/mesh-adaptation/movement.git
-            cd animate
-            make install
-            make test
+        run: |
+          . home/firedrake/bin/activate
+          cd home/firedrake/src
+          git clone https://github.com/mesh-adaptation/movement.git
+          cd animate
+          make install
+          make test
