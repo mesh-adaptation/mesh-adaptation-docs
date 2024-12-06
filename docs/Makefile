@@ -48,7 +48,6 @@ copy_demos:
 	install -d source/demos
 	cp ${ANIMATE}/demos/*.py source/demos
 	# cp ${ANIMATE}/demos/*.jpg source/demos
-	cp ${ANIMATE}/demos/demo_references.bib source/demos
 	cp ${GOALIE}/demos/*.py source/demos
 	# cp ${GOALIE}/demos/*.jpg source/demos
 	cp ${MOVEMENT}/demos/*.py source/demos
