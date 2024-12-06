@@ -54,3 +54,13 @@ The source codes for all four packages are hosted on GitHub:
 `Movement <https://github.com/mesh-adaptation/movement/>`__,
 `Goalie <https://github.com/mesh-adaptation/goalie/>`__.
 `UM2N <https://github.com/mesh-adaptation/UM2N/>`__.
+
+.. toctree::
+   :hidden:
+
+   self
+   References <references>
+   Animate <animate/index>
+   Movement <movement/index>
+   Goalie <goalie/index>
+   UM2N <UM2N>

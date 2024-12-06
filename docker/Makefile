@@ -2,7 +2,7 @@ all: build
 
 PACKAGE		?=
 NAMESPACE	= ghcr.io/mesh-adaptation
-IMAGE		= $(PACKAGE)-parmmg
+IMAGE		= $(PACKAGE)
 TAG		= latest
 
 build:

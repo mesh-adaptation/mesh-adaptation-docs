@@ -40,6 +40,7 @@ be searched using the inbuilt :ref:`search engine <search>`.
     Solid body rotation <../demos/solid_body_rotation.py>
     Advection-diffusion-reaction <../demos/gray_scott.py>
     Advection-diffusion-reaction with multiple prognostic variables <../demos/gray_scott_split.py>
+    Mantle convection <../demos/mantle_convection.py>
 
 *Error estimation*
 
@@ -57,3 +58,4 @@ be searched using the inbuilt :ref:`search engine <search>`.
     Hessian-based mesh adaptation for a 2D steady-state problem <../demos/point_discharge2d-hessian.py>
     Goal-oriented mesh adaptation for a 2D steady-state problem <../demos/point_discharge2d-goal_oriented.py>
     Hessian-based mesh adaptation for a 2D time-dependent problem <../demos/burgers-hessian.py>
+    Goal-oriented mesh adaptation for a 2D time-dependent problem <../demos/burgers-goal_oriented.py>

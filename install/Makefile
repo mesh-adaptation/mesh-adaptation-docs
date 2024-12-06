@@ -1,17 +1,20 @@
 # Makefile for installing Firedrake based on a PETSc installation including Mmg
 # and ParMmg.
 
-# Distribution-specific includes
+# Distribution-specific configuration
 ifneq (,$(findstring Debian,$(shell cat /etc/os-release)))
 DISTRO = debian
+FIREDRAKE_CONFIGURE_OPTIONS :=
 else ifneq (,$(findstring Red Hat,$(shell cat /etc/os-release)))
 DISTRO = rhel
+FIREDRAKE_CONFIGURE_OPTIONS = --no-package-manager
 else ifneq (,$(findstring Ubuntu,$(shell cat /etc/os-release)))
 DISTRO = ubuntu
+FIREDRAKE_CONFIGURE_OPTIONS :=
 else
 DISTRO = other
+FIREDRAKE_CONFIGURE_OPTIONS :=
 endif
-include config/$(DISTRO).mk
 
 # Command line options
 MPICC					?= $(shell which mpicc)

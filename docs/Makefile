@@ -48,10 +48,14 @@ copy_demos:
 	install -d source/demos
 	cp ${ANIMATE}/demos/*.py source/demos
 	cp ${ANIMATE}/demos/*.jpg source/demos
+	cp ${ANIMATE}/demos/*.svg source/demos
+	
 	cp ${GOALIE}/demos/*.py source/demos
 	cp ${GOALIE}/demos/*.jpg source/demos
+	
 	cp ${MOVEMENT}/demos/*.py source/demos
 	cp ${MOVEMENT}/demos/*.jpg source/demos
+	
 	for FILE in source/demos/*.py; do \
 		pylit -c $$FILE; mv $$FILE.txt $$FILE.rst; \
 	done
