@@ -32,7 +32,7 @@ jobs:
 
       - name: 'Install Firedrake'
         run: |
-          yes | make install
+          make install
 
   install_mesh_adaptation:
     name: 'Install and test Animate, Goalie and Movement'
