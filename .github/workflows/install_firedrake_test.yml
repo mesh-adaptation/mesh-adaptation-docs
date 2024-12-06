@@ -31,8 +31,17 @@ jobs:
           curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/petsc_configure_options.txt
 
       - name: 'Install Firedrake'
-        run: |
-          make install
+        run: yes | make install
+
+  debug_install_firedrake:
+    name: 'Debug Firedrake Installation'
+    runs-on: ubuntu-latest
+    needs: install_firedrake
+    if: failure()
+
+    steps:
+      - name: 'Print firedrake-install.log'
+        run: cat firedrake-install.log
 
   install_mesh_adaptation:
     name: 'Install and test Animate, Goalie and Movement'
