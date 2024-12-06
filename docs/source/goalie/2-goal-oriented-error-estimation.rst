@@ -63,7 +63,7 @@ This is the equation that we solve when we call
 Recall that we seek to accurately evaluate :math:`J` using a finite element
 method. This is the same as saying that we seek to minimise the "QoI error"
 :math:`J(u)-J(u_h)`. The fundamental result in goal-oriented error estimation
-is the first order *dual weighted residual* result :cite:`BR:01`,
+is the first order *dual weighted residual* result :cite:`Becker:2001`,
 
 .. math::
     :label: dwr1
@@ -101,4 +101,5 @@ using :meth:`~.GoalOrientedMeshSeq.indicate_errors`. See `the Burgers error esti
 References
 ----------
 
-.. bibliography:: 2-references.bib
+.. bibliography::
+   :filter: docname in docnames

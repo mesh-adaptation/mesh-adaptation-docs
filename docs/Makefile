@@ -48,20 +48,20 @@ copy_demos:
 	install -d source/demos
 	cp ${ANIMATE}/demos/*.py source/demos
 	cp ${ANIMATE}/demos/*.jpg source/demos
-	cp ${ANIMATE}/demos/demo_references.bib source/demos
+	cp ${ANIMATE}/demos/*.svg source/demos
+	
 	cp ${GOALIE}/demos/*.py source/demos
 	cp ${GOALIE}/demos/*.jpg source/demos
-	cat ${GOALIE}/demos/demo_references.bib >> source/demos/demo_references.bib
+	
 	cp ${MOVEMENT}/demos/*.py source/demos
 	cp ${MOVEMENT}/demos/*.jpg source/demos
-	cat ${MOVEMENT}/demos/demo_references.bib >> source/demos/demo_references.bib
+	
 	for FILE in source/demos/*.py; do \
 		pylit -c $$FILE; mv $$FILE.txt $$FILE.rst; \
 	done
 	install -d $(BUILDDIR)/html/demos
 	cp source/demos/*.py $(BUILDDIR)/html/demos
 	cp source/demos/*.jpg $(BUILDDIR)/html/demos
-	cp source/demos/*.bib $(BUILDDIR)/html/demos
 	install -d $(BUILDDIR)/html/animate
 	install -d $(BUILDDIR)/html/goalie
 	install -d $(BUILDDIR)/html/movement
