@@ -85,6 +85,7 @@ jobs:
           git pull
           pip install -e .
 
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           # pip uninstall -y UM2N
           cd /home/firedrake/firedrake/src/
           git clone https://github.com/mesh-adaptation/UM2N.git
