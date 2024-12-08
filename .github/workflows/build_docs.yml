@@ -63,18 +63,13 @@ jobs:
       - name: Install Animate, Goalie, Movement, and UM2N
         run: |
           . /home/firedrake/firedrake/bin/activate
-          # cd /home/firedrake/firedrake/src/
           git config --global --add safe.directory '*'
 
-          # git clone https://github.com/mesh-adaptation/animate.git
-          # pip install -e animate
           pip uninstall -y animate
           cd /home/firedrake/firedrake/src/animate/
           git pull
           pip install -e .
 
-          # git clone https://github.com/mesh-adaptation/goalie.git
-          # pip install -e goalie
           pip uninstall -y goalie
           cd /home/firedrake/firedrake/src/goalie/
           git pull
@@ -86,10 +81,8 @@ jobs:
           pip install -e .
 
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          # pip uninstall -y UM2N
           cd /home/firedrake/firedrake/src/
           git clone https://github.com/mesh-adaptation/UM2N.git
-          # git pull
           pip install -e UM2N
         working-directory: /home/firedrake/output/
         shell: bash
