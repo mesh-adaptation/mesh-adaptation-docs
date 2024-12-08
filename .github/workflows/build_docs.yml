@@ -12,20 +12,51 @@ on:
       - 'docs/**'
       - '.github/workflows/build_docs.yml'
   workflow_dispatch:
+  # Every night at midnight build docs if Animate, Goalie, Movement, or UM2N have been updated in the last 24h
+  schedule:
+    - cron: '0 0 * * *'
 
 concurrency:
   group: 'build_docs-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
+  # Check if there have been commits on the main branch of other repos in the last 24h
+  check_updates:
+    name: Check for updates in Animate, Goalie, Movement, and UM2N
+    runs-on: ubuntu-latest
+    outputs:
+      updates_found: ${{ steps.check_repos.outputs.updates_found }}
+    steps:
+      - name: Set up environment
+        run: |
+          APIURL="https://api.github.com/repos/mesh-adaptation"
+          echo "REPOS=${APIURL}/animate ${APIURL}/goalie ${APIURL}/movement ${APIURL}/UM2N" >> $GITHUB_ENV
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Check for updates in repositories
+        id: check_repos
+        run: |
+          for REPO in $REPOS; do
+            echo "Checking $REPO"
+            COMMITS=$(curl -L -H "Authorization: token $GITHUB_TOKEN" "$REPO/commits?sha=main&since=$(date -d '24 hours ago' +'%Y-%m-%dT%H:%M:%SZ')")
+            echo $COMMITS
+            if [ ${#COMMITS} -gt 10 ]; then
+              echo "Found new commits in $REPO"
+              echo "updates_found=true" >> $GITHUB_ENV
+            fi
+          done
+
   build_docs:
     name: Build Mesh Adaptation Documentation
     runs-on: ubuntu-latest
+    needs: check_updates
     container:
       image: ghcr.io/mesh-adaptation/firedrake-um2n:latest
       options: --user root
       volumes:
         - ${{ github.workspace }}:/home/firedrake/output
+    if: ${{ needs.check_updates.outputs.updates_found == 'true' || github.event_name != 'schedule' }}
     steps:
       - uses: actions/checkout@v3
 
