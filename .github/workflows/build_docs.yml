@@ -36,7 +36,7 @@ jobs:
         working-directory: /home/firedrake/output/
         shell: bash
 
-      - name: Install Sphinx
+      - name: Install Sphinx and other dependencies
         run: |
           . /home/firedrake/firedrake/bin/activate
           python3 -m pip install -r requirements.txt
