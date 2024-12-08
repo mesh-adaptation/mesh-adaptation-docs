@@ -12,7 +12,7 @@ on:
       - 'docs/**'
       - '.github/workflows/build_docs.yml'
   workflow_dispatch:
-  # Build docs if Animate, Goalie, Movement, or UM2N have been updated in the last 24h
+  # Every night at midnight build docs if Animate, Goalie, Movement, or UM2N have been updated in the last 24h
   schedule:
     - cron: '0 0 * * *'
 
@@ -30,18 +30,19 @@ jobs:
     steps:
       - name: Set up environment
         run: |
-          echo "REPOS=https://api.github.com/repos/mesh-adaptation/animate https://api.github.com/repos/mesh-adaptation/goalie https://api.github.com/repos/mesh-adaptation/movement https://api.github.com/repos/mesh-adaptation/UM2N" >> $GITHUB_ENV
+          APIURL="https://api.github.com/repos/mesh-adaptation"
+          echo "REPOS=${APIURL}/animate ${APIURL}/goalie ${APIURL}/movement ${APIURL}/UM2N" >> $GITHUB_ENV
           echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
 
       - name: Check for updates in repositories
         id: check_repos
         run: |
-          for repo in $REPOS; do
-            echo "Checking $repo"
-            commits=$(curl -L -H "Authorization: token $GITHUB_TOKEN" "$repo/commits?sha=main&since=$(date -d '24 hours ago' +'%Y-%m-%dT%H:%M:%SZ')")
-            echo $commits
-            if [ ${#commits} -gt 10 ]; then
-              echo "Found new commits in $repo"
+          for REPO in $REPOS; do
+            echo "Checking $REPO"
+            COMMITS=$(curl -L -H "Authorization: token $GITHUB_TOKEN" "$REPO/commits?sha=main&since=$(date -d '24 hours ago' +'%Y-%m-%dT%H:%M:%SZ')")
+            echo $COMMITS
+            if [ ${#COMMITS} -gt 10 ]; then
+              echo "Found new commits in $REPO"
               echo "updates_found=true" >> $GITHUB_ENV
             fi
           done
