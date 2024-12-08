@@ -40,7 +40,7 @@ jobs:
           updates_found=false
           for repo in $REPOS; do
             echo "Checking $repo"
-            commits=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$repo/commits?sha=main&since=$(date -u -d '24 hours ago' +%Y-%m-%dT%H:%M:%SZ)")
+            commits=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$repo/commits?sha=main&since=$(date -u -d '4 hours ago' +%Y-%m-%dT%H:%M:%SZ)")
             if [ "$commits" != "[]" ]; then
               echo "Found new commits in $repo"
               echo "updates_found=true" >> $GITHUB_ENV
