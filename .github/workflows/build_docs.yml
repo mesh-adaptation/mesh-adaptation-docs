@@ -86,10 +86,10 @@ jobs:
           pip install -e .
 
           # pip uninstall -y UM2N
+          cd /home/firedrake/firedrake/src/
           git clone https://github.com/mesh-adaptation/UM2N.git
-          cd /home/firedrake/firedrake/src/UM2N/
           # git pull
-          pip install -e .
+          pip install -e UM2N
         working-directory: /home/firedrake/output/
         shell: bash
 
