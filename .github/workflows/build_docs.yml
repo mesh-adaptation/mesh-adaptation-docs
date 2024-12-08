@@ -12,20 +12,19 @@ on:
       - 'docs/**'
       - '.github/workflows/build_docs.yml'
   workflow_dispatch:
-  # Check for updates in other repos every day at midnight
-  # schedule:
-  #   - cron: '0 0 * * *'
+  # Build docs if Animate, Goalie, Movement, or UM2N have been updated in the last 24h
+  schedule:
+    - cron: '0 0 * * *'
 
 concurrency:
   group: 'build_docs-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
-  # Check if there have been commits on the main branch of other repositories
+  # Check if there have been commits on the main branch of other repos in the last 24h
   check_updates:
     name: Check for updates in Animate, Goalie, Movement, and UM2N
     runs-on: ubuntu-latest
-    # if: ${{ github.event_name == 'schedule' }}
     outputs:
       updates_found: ${{ steps.check_repos.outputs.updates_found }}
     steps:
@@ -37,11 +36,11 @@ jobs:
       - name: Check for updates in repositories
         id: check_repos
         run: |
-          echo "updates_found=true" >> $GITHUB_ENV
           for repo in $REPOS; do
             echo "Checking $repo"
-            commits=$(curl -L -H "Authorization: token $GITHUB_TOKEN" -H "since: $(date -u -d '4 hours ago' --iso-8601=seconds)" $repo/commits/main)
-            if [ "$commits" != "[]" ]; then
+            commits=$(curl -L -H "Authorization: token $GITHUB_TOKEN" "$repo/commits?sha=main&since=$(date -d '24 hours ago' +'%Y-%m-%dT%H:%M:%SZ')")
+            echo $commits
+            if [ ${#commits} -gt 10 ]; then
               echo "Found new commits in $repo"
               echo "updates_found=true" >> $GITHUB_ENV
             fi
