@@ -1,0 +1,93 @@
+name: Build and Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/build_docs.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - '.github/workflows/build_docs.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: 'build_docs-${{ github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  build_docs:
+    name: Build Mesh Adaptation Documentation
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/mesh-adaptation/firedrake-um2n:latest
+      options: --user root
+      volumes:
+        - ${{ github.workspace }}:/home/firedrake/output
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Animate, Goalie, Movement, and UM2N
+        run: |
+          . /home/firedrake/firedrake/bin/activate
+          cd /home/firedrake/firedrake/src/
+          git config --global --add safe.directory '*'
+
+          git clone https://github.com/mesh-adaptation/animate.git
+          pip install -e animate
+
+          git clone https://github.com/mesh-adaptation/goalie.git
+          pip install -e goalie
+
+          pip uninstall -y movement
+          cd movement/
+          git pull
+          pip install -e .
+
+          pip uninstall -y UM2N
+          cd /home/firedrake/firedrake/src/UM2N/
+          git pull
+          pip install -e .
+        working-directory: /home/firedrake/output/
+        shell: bash
+
+      - name: Install Sphinx and other dependencies
+        run: |
+          . /home/firedrake/firedrake/bin/activate
+          python3 -m pip install -r requirements.txt
+        working-directory: /home/firedrake/output/
+        shell: bash
+
+      - name: Build HTML Documentation
+        run: |
+          . /home/firedrake/firedrake/bin/activate
+          cd docs
+          make run_animate_demos
+          make run_goalie_demos
+          make run_movement_demos
+          make html
+        working-directory: /home/firedrake/output/
+        shell: bash
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /home/firedrake/output/docs/build/html
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build_docs
+    if: ${{ github.ref == 'refs/heads/main' }}
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
