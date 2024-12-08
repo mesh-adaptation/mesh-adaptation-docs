@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: check_updates
     container:
-      image: ghcr.io/mesh-adaptation/firedrake-um2n:latest
+      image: ghcr.io/mesh-adaptation/firedrake-parmmg:latest
       options: --user root
       volumes:
         - ${{ github.workspace }}:/home/firedrake/output
@@ -63,23 +63,32 @@ jobs:
       - name: Install Animate, Goalie, Movement, and UM2N
         run: |
           . /home/firedrake/firedrake/bin/activate
-          cd /home/firedrake/firedrake/src/
+          # cd /home/firedrake/firedrake/src/
           git config --global --add safe.directory '*'
 
-          git clone https://github.com/mesh-adaptation/animate.git
-          pip install -e animate
-
-          git clone https://github.com/mesh-adaptation/goalie.git
-          pip install -e goalie
-
-          pip uninstall -y movement
-          cd movement/
+          # git clone https://github.com/mesh-adaptation/animate.git
+          # pip install -e animate
+          pip uninstall -y animate
+          cd /home/firedrake/firedrake/src/animate/
           git pull
           pip install -e .
 
-          pip uninstall -y UM2N
-          cd /home/firedrake/firedrake/src/UM2N/
+          # git clone https://github.com/mesh-adaptation/goalie.git
+          # pip install -e goalie
+          pip uninstall -y goalie
+          cd /home/firedrake/firedrake/src/goalie/
           git pull
+          pip install -e .
+
+          pip uninstall -y movement
+          cd /home/firedrake/firedrake/src/movement/
+          git pull
+          pip install -e .
+
+          # pip uninstall -y UM2N
+          git clone https://github.com/mesh-adaptation/UM2N.git
+          cd /home/firedrake/firedrake/src/UM2N/
+          # git pull
           pip install -e .
         working-directory: /home/firedrake/output/
         shell: bash
