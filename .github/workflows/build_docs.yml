@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Animate and Goalie
+      - name: Install Animate, Goalie, Movement, and UM2N
         run: |
           . /home/firedrake/firedrake/bin/activate
           cd /home/firedrake/firedrake/src/
@@ -33,6 +33,10 @@ jobs:
           git clone https://github.com/mesh-adaptation/goalie.git
           pip install -e animate
           pip install -e goalie
+          pip uninstall -y movement
+          pip install -e movement
+          pip uninstall -y UM2N
+          pip install -e UM2N
         working-directory: /home/firedrake/output/
         shell: bash
 
