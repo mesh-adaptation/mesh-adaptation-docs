@@ -43,7 +43,7 @@ jobs:
             echo $COMMITS
             if [ ${#COMMITS} -gt 10 ]; then
               echo "Found new commits in $REPO"
-              echo "updates_found=true" >> $GITHUB_ENV
+              echo "updates_found=true" >> $GITHUB_OUTPUT
             fi
           done
 
