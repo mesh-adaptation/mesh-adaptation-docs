@@ -50,7 +50,8 @@ jobs:
         id: install_fd
         run: |
           yes | make install_no_chk
-          echo "FIREDRAKE_ENV=firedrake-$(date +%b%y | tr A-Z a-z)" >> $GITHUB_OUTPUT
+          cd firedrake-*
+          echo "FIREDRAKE_ENV=$(pwd)" >> $GITHUB_OUTPUT
 
       - name: 'Print firedrake-install.log if installation fails'
         if: failure()
