@@ -60,30 +60,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Reinstall Animate, Goalie, Movement, and UM2N
+      - name: Update Animate, Goalie, Movement, and UM2N
         run: |
           . /home/firedrake/firedrake/bin/activate
           git config --global --add safe.directory '*'
 
-          pip uninstall -y animate
           cd /home/firedrake/firedrake/src/animate/
           git pull
-          pip install -e .
 
-          pip uninstall -y goalie
           cd /home/firedrake/firedrake/src/goalie/
           git pull
-          pip install -e .
 
-          pip uninstall -y movement
           cd /home/firedrake/firedrake/src/movement/
           git pull
-          pip install -e .
 
-          pip uninstall -y UM2N
           cd /home/firedrake/firedrake/src/UM2N/
           git pull
-          pip install -e .
         working-directory: /home/firedrake/output/
         shell: bash
 
