@@ -25,16 +25,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Install required packages'
-        run: |
-          sudo apt-get update
-          sudo apt-get -y dist-upgrade
-          sudo apt-get install -y --no-install-recommends tzdata curl vim docker.io \
-          openssh-client build-essential autoconf automake cmake gfortran git \
-          libopenblas-serial-dev libtool python3-dev python3-pip python3-tk \
-          python3-venv python3-requests zlib1g-dev libboost-dev sudo gmsh bison flex \
-          ninja-build libocct-ocaf-dev libocct-data-exchange-dev swig graphviz \
-          libcurl4-openssl-dev libxml2-dev
+      # - name: 'Install required packages'
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get -y dist-upgrade
+      #     sudo apt-get install -y --no-install-recommends tzdata curl vim docker.io \
+      #     openssh-client build-essential autoconf automake cmake gfortran git \
+      #     libopenblas-serial-dev libtool python3-dev python3-pip python3-tk \
+      #     python3-venv python3-requests zlib1g-dev libboost-dev sudo gmsh bison flex \
+      #     ninja-build libocct-ocaf-dev libocct-data-exchange-dev swig graphviz \
+      #     libcurl4-openssl-dev libxml2-dev
 
       - name: 'Download necessary files'
         run: |
@@ -47,6 +47,12 @@ jobs:
       - name: 'Print firedrake-install.log if installation fails'
         if: failure()
         run: cat firedrake-install.log
+
+      - name: 'Start tmate session if installation fails'
+        if: failure()
+        uses: mxschmitt/action-tmate@v3
+        with:
+          ssh: true
 
   install_mesh_adaptation:
     name: 'Install and test Animate, Goalie and Movement'
