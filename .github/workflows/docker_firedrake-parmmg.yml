@@ -15,13 +15,9 @@ on:
       - '.github/workflows/docker_firedrake-parmmg.yml'
       - 'docker/Dockerfile.firedrake-parmmg'
 
-  # Trigger this workflow when docker_petsc-parmmg.yml completes on the main branch
-  workflow_run:
-    workflows: ['Build bespoke PETSc Docker container']
-    types:
-      - completed
-    branches:
-      - main
+   # Build and push the Docker container every Saturday at 12AM
+  schedule:
+    - cron: '0 0 * * 6'
 
   # Manually trigger the workflow
   workflow_dispatch:
