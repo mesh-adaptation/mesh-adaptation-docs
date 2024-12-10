@@ -62,4 +62,4 @@ RUN curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/
 	git clone https://github.com/mesh-adaptation/goalie.git && \
 	cd animate && make install && \
 	cd ../movement && make install && \
-	cd ../goalie && make install"
+	cd ../goalie && make install
