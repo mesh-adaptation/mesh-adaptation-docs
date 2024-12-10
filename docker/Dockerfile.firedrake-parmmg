@@ -1,31 +1,65 @@
 # Dockerfile for installing Firedrake with mesh adaptation support via Mmg and ParMmg,
 # as well as Animate, Goalie, and Movement
-FROM ghcr.io/mesh-adaptation/petsc-parmmg
+
+# First stage: Use the pre-built petsc-parmmg image from which to copy the PETSc build
+FROM ghcr.io/mesh-adaptation/petsc-parmmg AS petscbuild
+
+# Second stage: Start a new final image from Ubuntu
+FROM ubuntu:24.04
+
+RUN apt-get update \
+    && apt-get -y dist-upgrade \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
+    && apt-get -y install curl vim docker.io openssh-client build-essential autoconf automake \
+        cmake gfortran git libopenblas-serial-dev libtool python3-dev python3-pip python3-tk \
+        python3-venv python3-requests zlib1g-dev libboost-dev sudo gmsh bison flex ninja-build \
+        libocct-ocaf-dev libocct-data-exchange-dev swig graphviz libcurl4-openssl-dev libxml2-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Use a more sane locale
+ENV LC_ALL=C.UTF-8
+
+# Change the `ubuntu` user to `firedrake`
+# and ensure that we do not run as root on self-hosted systems
+RUN usermod -d /home/firedrake -m ubuntu \
+    && usermod -l firedrake ubuntu \
+    && groupmod -n firedrake ubuntu \
+    && usermod -aG sudo firedrake \
+    && echo "firedrake:docker" | chpasswd \
+    && echo "firedrake ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers \
+    && ldconfig
 
 USER firedrake
 WORKDIR /home/firedrake
 
-ENV PETSC_ARCH default
+# Copy PETSc and MPI directories from petscbuild stage
+COPY --from=petscbuild /home/firedrake/petsc /home/firedrake/petsc
 
-# Build Firedrake and install additional packages
-RUN curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/scripts/firedrake-install
-RUN bash -c "python3 firedrake-install \
-    --no-package-manager \
-    --disable-ssh \
-    --honour-petsc-dir \
-    --mpicc=${MPICH_DIR}/mpicc \
-    --mpicxx=${MPICH_DIR}/mpicxx \
-    --mpif90=${MPICH_DIR}/mpif90 \
-    --mpiexec=${MPICH_DIR}/mpiexec \
-    --install thetis && \
+# Set some useful environment variables
+ENV PETSC_ARCH=default
+ENV PETSC_DIR=/home/firedrake/petsc
+ENV MPICH_DIR=${PETSC_DIR}/packages/bin
+ENV HDF5_DIR=${PETSC_DIR}/packages
+ENV HDF5_MPI=ON
+ENV OMP_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
+
+# Install Firedrake and additional packages (Animate, Movement, Goalie)
+RUN curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/scripts/firedrake-install && \
+    python3 firedrake-install \
+        --no-package-manager \
+        --disable-ssh \
+        --honour-petsc-dir \
+        --mpicc=${MPICH_DIR}/mpicc \
+        --mpicxx=${MPICH_DIR}/mpicxx \
+        --mpif90=${MPICH_DIR}/mpif90 \
+        --mpiexec=${MPICH_DIR}/mpiexec \
+        --install thetis && \
     source firedrake/bin/activate && \
-	  cd firedrake/src && \
-	  git clone https://github.com/mesh-adaptation/animate.git && \
-	  git clone https://github.com/mesh-adaptation/movement.git && \
-	  git clone https://github.com/mesh-adaptation/goalie.git && \
-	  cd animate && \
-	  make install && \
-	  cd ../movement && \
-	  make install && \
-	  cd ../goalie && \
-	  make install"
+	cd firedrake/src && \
+	git clone https://github.com/mesh-adaptation/animate.git && \
+	git clone https://github.com/mesh-adaptation/movement.git && \
+	git clone https://github.com/mesh-adaptation/goalie.git && \
+	cd animate && make install && \
+	cd ../movement && make install && \
+	cd ../goalie && make install"
