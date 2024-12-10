@@ -24,7 +24,7 @@ jobs:
     name: 'Install Firedrake'
     runs-on: ubuntu-latest
     container:
-      image: hub.docker.com/_/ubuntu:24.04
+      image: ubuntu:24.04
       options: --user root
 
     steps:
