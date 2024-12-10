@@ -46,20 +46,20 @@ ENV OPENBLAS_NUM_THREADS=1
 
 # Install Firedrake and additional packages (Animate, Movement, Goalie)
 RUN curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/scripts/firedrake-install && \
-    python3 firedrake-install \
-        --no-package-manager \
-        --disable-ssh \
-        --honour-petsc-dir \
-        --mpicc=${MPICH_DIR}/mpicc \
-        --mpicxx=${MPICH_DIR}/mpicxx \
-        --mpif90=${MPICH_DIR}/mpif90 \
-        --mpiexec=${MPICH_DIR}/mpiexec \
-        --install thetis && \
+    bash -c "python3 firedrake-install \
+		--no-package-manager \
+		--disable-ssh \
+		--honour-petsc-dir \
+		--mpicc=${MPICH_DIR}/mpicc \
+		--mpicxx=${MPICH_DIR}/mpicxx \
+		--mpif90=${MPICH_DIR}/mpif90 \
+		--mpiexec=${MPICH_DIR}/mpiexec \
+		--install thetis && \
     source firedrake/bin/activate && \
-	cd firedrake/src && \
-	git clone https://github.com/mesh-adaptation/animate.git && \
-	git clone https://github.com/mesh-adaptation/movement.git && \
-	git clone https://github.com/mesh-adaptation/goalie.git && \
-	cd animate && make install && \
-	cd ../movement && make install && \
-	cd ../goalie && make install
+    cd firedrake/src && \
+    git clone https://github.com/mesh-adaptation/animate.git && \
+    git clone https://github.com/mesh-adaptation/movement.git && \
+    git clone https://github.com/mesh-adaptation/goalie.git && \
+    cd animate && make install && \
+    cd ../movement && make install && \
+    cd ../goalie && make install"
