@@ -50,11 +50,14 @@ jobs:
           cd firedrake-*
           echo "FIREDRAKE_ENV=$(pwd)" >> $GITHUB_ENV
 
-      - name: 'Print firedrake-install.log if installation fails'
-        if: ${{ failure() }}
-        run: |
-          sleep 10
-          cat firedrake-install.log
+      - name: 'Upload firedrake-install.log as an artifact'
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: firedrake-install-log
+          path: firedrake-install.log
+          retention-days: 1
+          overwrite: true
 
       - name: 'Install and test Animate'
         run: |
