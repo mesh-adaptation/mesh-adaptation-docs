@@ -16,7 +16,7 @@ on:
 
 # Stop the workflow if a new run is requested
 concurrency:
-  group: 'install_firedrake_test-${{ github.ref }}'
+  group: 'test_firedrake_install-${{ github.ref }}'
   cancel-in-progress: true
 
 jobs:
@@ -41,8 +41,8 @@ jobs:
 
       - name: 'Download necessary files'
         run: |
-          curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/fix-mpi-install/install/Makefile
-          curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/fix-mpi-install/install/petsc_configure_options.txt
+          curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/Makefile
+          curl -O https://raw.githubusercontent.com/mesh-adaptation/mesh-adaptation-docs/main/install/petsc_configure_options.txt
 
       - name: 'Install Firedrake'
         run: |
