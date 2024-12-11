@@ -51,7 +51,7 @@ jobs:
           echo "FIREDRAKE_ENV=$(pwd)" >> $GITHUB_ENV
 
       - name: 'Print firedrake-install.log if installation fails'
-        if: failure()
+        if: ${{ failure() }}
         run: |
           sleep 10
           cat firedrake-install.log
@@ -66,6 +66,7 @@ jobs:
           make test
 
       - name: 'Install and test Goalie'
+        if: ${{ !cancelled() }}
         run: |
           . $FIREDRAKE_ENV/bin/activate
           cd $FIREDRAKE_ENV/src
@@ -75,6 +76,7 @@ jobs:
           make test
 
       - name: 'Install and test Movement'
+        if: ${{ !cancelled() }}
         run: |
           . $FIREDRAKE_ENV/bin/activate
           cd $FIREDRAKE_ENV/src
