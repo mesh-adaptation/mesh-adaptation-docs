@@ -7,9 +7,9 @@ on:
       - 'install/**'
       - '.github/workflows/install_firedrake_test.yml'
 
-  # Trigger the workflow every Saturday at 1AM
+  # Trigger the workflow on the 1st day of every month at midnight
   schedule:
-    - cron: '0 1 * * 6'
+    - cron: '0 0 1 * *'
 
   # Manually trigger the workflow
   workflow_dispatch:
