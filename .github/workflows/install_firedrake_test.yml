@@ -56,12 +56,9 @@ jobs:
           sleep 10
           cat firedrake-install.log
 
-      - name: 'Activate Firedrake environment'
-        run: |
-          . $FIREDRAKE_ENV/bin/activate
-
       - name: 'Install and test Animate'
         run: |
+          . $FIREDRAKE_ENV/bin/activate
           cd $FIREDRAKE_ENV/src
           git clone https://github.com/mesh-adaptation/animate.git
           cd animate
@@ -70,6 +67,7 @@ jobs:
 
       - name: 'Install and test Goalie'
         run: |
+          . $FIREDRAKE_ENV/bin/activate
           cd $FIREDRAKE_ENV/src
           git clone https://github.com/mesh-adaptation/goalie.git
           cd goalie
@@ -78,6 +76,7 @@ jobs:
 
       - name: 'Install and test Movement'
         run: |
+          . $FIREDRAKE_ENV/bin/activate
           cd $FIREDRAKE_ENV/src
           git clone https://github.com/mesh-adaptation/movement.git
           cd movement
