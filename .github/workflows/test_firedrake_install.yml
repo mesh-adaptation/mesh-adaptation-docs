@@ -5,7 +5,7 @@ on:
   pull_request:
     paths:
       - 'install/**'
-      - '.github/workflows/install_firedrake_test.yml'
+      - '.github/workflows/test_firedrake_install.yml'
 
   # Trigger the workflow on the 1st day of every month at midnight
   schedule:
