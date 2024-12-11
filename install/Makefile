@@ -85,7 +85,7 @@ install_no_chk:
 		python3 firedrake-install $(FIREDRAKE_CONFIGURE_OPTIONS)
 
 # Standard install approach that asks user to check environment setup
-install: check_env
+install: check_env install_no_chk
 
 clean:
 	@rm -f $(BUILD_DIR)/firedrake-install
