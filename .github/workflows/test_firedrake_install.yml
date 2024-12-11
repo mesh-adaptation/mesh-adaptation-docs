@@ -1,4 +1,4 @@
-name: 'Install Firedrake and Mesh Adaptation software'
+name: 'Test Firedrake Installation'
 
 on:
   # Trigger when this or any file in the install directory changes
