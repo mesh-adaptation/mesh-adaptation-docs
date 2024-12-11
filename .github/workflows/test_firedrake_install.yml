@@ -46,7 +46,7 @@ jobs:
 
       - name: 'Install Firedrake'
         run: |
-          yes | make install_no_chk
+          make install_no_chk
           cd firedrake-*
           echo "FIREDRAKE_ENV=$(pwd)" >> $GITHUB_ENV
 
