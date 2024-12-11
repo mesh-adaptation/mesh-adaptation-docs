@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: check_updates
     container:
-      image: ghcr.io/mesh-adaptation/firedrake-parmmg:latest
+      image: ghcr.io/mesh-adaptation/firedrake-um2n:latest
       options: --user root
       volumes:
         - ${{ github.workspace }}:/home/firedrake/output
@@ -60,30 +60,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Animate, Goalie, Movement, and UM2N
+      - name: Update Animate, Goalie, Movement, and UM2N
         run: |
           . /home/firedrake/firedrake/bin/activate
           git config --global --add safe.directory '*'
-
-          pip uninstall -y animate
-          cd /home/firedrake/firedrake/src/animate/
-          git pull
-          pip install -e .
-
-          pip uninstall -y goalie
-          cd /home/firedrake/firedrake/src/goalie/
-          git pull
-          pip install -e .
-
-          pip uninstall -y movement
-          cd /home/firedrake/firedrake/src/movement/
-          git pull
-          pip install -e .
-
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
-          cd /home/firedrake/firedrake/src/
-          git clone https://github.com/mesh-adaptation/UM2N.git
-          pip install -e UM2N
+          for REPO in animate goalie movement UM2N; do
+            cd /home/firedrake/firedrake/src/$REPO
+            git pull
+          done
         working-directory: /home/firedrake/output/
         shell: bash
 
