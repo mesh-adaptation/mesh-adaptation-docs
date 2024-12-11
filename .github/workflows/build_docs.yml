@@ -64,18 +64,10 @@ jobs:
         run: |
           . /home/firedrake/firedrake/bin/activate
           git config --global --add safe.directory '*'
-
-          cd /home/firedrake/firedrake/src/animate/
-          git pull
-
-          cd /home/firedrake/firedrake/src/goalie/
-          git pull
-
-          cd /home/firedrake/firedrake/src/movement/
-          git pull
-
-          cd /home/firedrake/firedrake/src/UM2N/
-          git pull
+          for REPO in animate goalie movement UM2N; do
+            cd /home/firedrake/firedrake/src/$REPO
+            git pull
+          done
         working-directory: /home/firedrake/output/
         shell: bash
 
