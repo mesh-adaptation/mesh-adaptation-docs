@@ -27,12 +27,6 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: 'Update repo'
-        run: |
-          . /home/firedrake/firedrake/bin/activate
-          git config --global --add safe.directory '*'
-          git pull
-
       - name: 'Lint'
         run: |
           . /home/firedrake/firedrake/bin/activate
