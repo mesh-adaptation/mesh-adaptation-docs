@@ -35,4 +35,4 @@ jobs:
       - name: 'Run tests'
         run: |
           . /home/firedrake/firedrake/bin/activate
-          python -m coverage run --source=${{ github.repository }} -m pytest -v --durations=20 test && python -m coverage report
+          python -m coverage run --source=${{ github.event.repository.name }} -m pytest -v --durations=20 test && python -m coverage report
