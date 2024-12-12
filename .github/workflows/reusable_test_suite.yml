@@ -30,6 +30,7 @@ jobs:
       - name: 'Update repo'
         run: |
           . /home/firedrake/firedrake/bin/activate
+          git config --global --add safe.directory '*'
           git pull
 
       - name: 'Lint'
