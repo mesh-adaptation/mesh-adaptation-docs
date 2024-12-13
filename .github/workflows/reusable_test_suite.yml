@@ -40,5 +40,7 @@ jobs:
         run: |
           . /home/firedrake/firedrake/bin/activate
           ${{ inputs.test-command }}
+          python $(which firedrake-clean)
+          python -m coverage erase
           python -m coverage run --source=${{ github.event.repository.name }} -m pytest -v --durations=20 test
           python -m coverage report -m
